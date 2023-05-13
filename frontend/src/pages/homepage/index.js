@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components";
 import "./style/mainbody.css";
 import "./style/sidebar.css";
@@ -9,6 +9,13 @@ import guestGif from "../../images/guest.gif";
 import python from "../../images/python.png";
 
 function Homepage() {
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    var datetime = new Date();
+    setTime(datetime.toString());
+  }, [time]);
+
   return (
     <>
       <Navbar />
@@ -41,7 +48,7 @@ function Homepage() {
               <p style={{ textAlign: "center" }} className="lec_title">
                 Python Libraries
               </p>
-              <p>Starts At:12:00Pm</p>
+              <p>Starts At:{time}</p>
               <p className="account_name">
                 In the Python libraries lecture, we can learn about the vast
                 ecosystem of libraries available to Python developers and how

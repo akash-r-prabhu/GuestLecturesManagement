@@ -1,9 +1,10 @@
 import flask
+from flask import jsonify
 from bson.json_util import dumps, loads
 app = flask.Flask(__name__)
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-
+import json
 
 
 data= {
@@ -74,6 +75,14 @@ def userDetails():
     cursor=collection.find()
     return dumps(cursor)
 
+@app.route('/lectureList')
+def lectureList():
+    collection = db["lectures"]
+    cursor=collection.find()
+    return dumps(cursor)
+
+    
+    
 
 
 
