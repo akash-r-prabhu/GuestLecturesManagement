@@ -1,11 +1,14 @@
 import flask
 from flask import jsonify
 from bson.json_util import dumps, loads
-app = flask.Flask(__name__)
+
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import json
+from flask_cors import CORS 
 
+app = flask.Flask(__name__)
+CORS(app) 
 
 data= {
     "name": "John",
