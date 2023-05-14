@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>View Guest Lecture Request</title>
-  <!-- Add your CSS stylesheets and JavaScript files here -->
+  <title>View Guest Lecture Requests</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,43 +12,21 @@
       color: #333;
     }
 
+    .requests-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .request-box {
+      flex: 0 0 calc(33.33% - 20px);
+      margin: 10px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+
     p {
       margin: 5px 0;
-    }
-
-    /* Styling for Request Details Section */
-    h2:nth-of-type(1) {
-      margin-top: 20px;
-    }
-
-    /* Styling for Guest Speaker Information Section */
-    h2:nth-of-type(2) {
-      margin-top: 20px;
-    }
-
-    /* Styling for Audience Information Section */
-    h2:nth-of-type(3) {
-      margin-top: 20px;
-    }
-
-    /* Styling for Technical Requirements Section */
-    h2:nth-of-type(4) {
-      margin-top: 20px;
-    }
-
-    /* Styling for Logistics Section */
-    h2:nth-of-type(5) {
-      margin-top: 20px;
-    }
-
-    /* Styling for Additional Requirements Section */
-    h2:nth-of-type(6) {
-      margin-top: 20px;
-    }
-
-    /* Styling for Status and Actions Section */
-    h2:nth-of-type(7) {
-      margin-top: 20px;
     }
 
     /* Styling for buttons */
@@ -70,57 +47,49 @@
       background-color: #45a049;
     }
   </style>
+  <script>
+    // JavaScript code
+    function handleButtonClick(button) {
+      button.innerHTML = "Accepted";
+    }
+  </script>
 </head>
 <body>
-  <h1>View Guest Lecture Request</h1>
+  <h1>View Guest Lecture Requests</h1>
 
-  <!-- Request Details Section -->
-  <h2>Request Details</h2>
-  <p>Request ID: [Request ID]</p>
-  <p>Requester Name: [Requester Name]</p>
-  <p>Requester Email: [Requester Email]</p>
-  <p>Requested Date: [Requested Date]</p>
-  <p>Preferred Date: [Preferred Date]</p>
-  <p>Preferred Time: [Preferred Time]</p>
-  <p>Duration: [Duration]</p>
-  <p>Topic: [Topic]</p>
-  <p>Description: [Description]</p>
+  <div class="requests-container">
+    <!-- Guest Lecture Request 1 -->
+    <div class="request-box">
+      <h2>Request Details</h2>
+      <p>Request ID: [Request ID]</p>
+      <p>Requester Name: [Requester Name]</p>
+      <p>Requester Email: [Requester Email]</p>
+      <!-- ...Rest of the request details... -->
 
-  <!-- Guest Speaker Information Section -->
-  <h2>Guest Speaker Information</h2>
-  <p>Speaker Name: [Speaker Name]</p>
-  <p>Speaker Bio: [Speaker Bio]</p>
-  <p>Speaker Affiliation: [Speaker Affiliation]</p>
-  <p>Speaker Contact Details: [Speaker Contact Details]</p>
+      <h2>Guest Speaker Information</h2>
+      <p>Speaker Name: [Speaker Name]</p>
+      <!-- ...Rest of the speaker information... -->
 
-  <!-- Audience Information Section -->
-  <h2>Audience Information</h2>
-  <p>Audience Size: [Audience Size]</p>
-  <p>Audience Profile: [Audience Profile]</p>
+      <!-- ...Rest of the sections... -->
 
-  <!-- Technical Requirements Section -->
-  <h2>Technical Requirements</h2>
-  <p>Audio/Visual Equipment: [Audio/Visual Equipment]</p>
-  <p>Internet Connection: [Internet Connection]</p>
+      <h2>Status and Actions</h2>
+      <p>Status: [Status]</p>
+      <button class="action-button" onclick="handleButtonClick(this)">Approve</button>
+      <button class="action-button" onclick="handleButtonClick(this)">Decline</button>
+    </div>
 
-  <!-- Logistics Section -->
-  <h2>Logistics</h2>
-  <p>Venue: [Venue]</p>
-  <p>Room Setup: [Room Setup]</p>
-  <p>Parking: [Parking]</p>
-  <p>Travel Arrangements: [Travel Arrangements]</p>
-  <p>Accommodation: [Accommodation]</p>
+    <!-- Guest Lecture Request 2 -->
+    <div class="request-box">
+      <!-- ...Content for the second request... -->
+    </div>
 
-  <!-- Additional Requirements Section -->
-  <h2>Additional Requirements</h2>
-  <p>[Additional Requirements]</p>
+    <!-- Guest Lecture Request 3 -->
+    <div class="request-box">
+      <!-- ...Content for the third request... -->
+    </div>
 
-  <!-- Status and Actions Section -->
-  <h2>Status and Actions</h2>
-  <p>Status: [Status]</p>
-  <!-- Add buttons or links for different actions (approve, decline, etc.) -->
-
-  <!-- Add any other sections or elements you need -->
+    <!-- Add more request boxes as needed -->
+  </div>
 
 </body>
 </html>
