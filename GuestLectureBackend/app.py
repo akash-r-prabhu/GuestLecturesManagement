@@ -6,10 +6,10 @@ from bson.json_util import dumps, loads
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import json
-from flask_cors import CORS 
+# from flask_cors import CORS 
 
 app = flask.Flask(__name__)
-CORS(app) 
+# CORS(app) 
 
 data= {
     "name": "John",

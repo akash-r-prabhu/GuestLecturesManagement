@@ -1,6 +1,6 @@
 import React from "react";
-import axios from "../../axios";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { Navbar, LectureBox } from "../../components";
 import lecture1 from "../../images/lecture1.jpg";
 import "./style/style.css";
@@ -11,12 +11,18 @@ function ViewLectures() {
   // use no cors mode
 
   useEffect(() => {
-    async function fetchData() {
-      const request = await axios.get("/lectures");
-      setLectures(request.data);
-      return request;
-    }
-    fetchData();
+    axios
+      .get("http://localhost:8001/lectureList", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then((res) => {
+        setLectures(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -24,18 +30,15 @@ function ViewLectures() {
       <Navbar />
 
       <div className="c">
-        <LectureBox
-          image={lecture1}
-          title="Lecture 1: Introduction to Programming"
-          date="Date: May 10, 2023"
-          time="Time: 10:00 AM - 12:00 PM"
-        />
-        <LectureBox
-          image={lecture1}
-          title="Lecture 1: Introduction to Programming"
-          date="Date: May 10, 2023"
-          time="Time: 10:00 AM - 12:00 PM"
-        />
+        {lectures.map((lecture) => (
+          <LectureBox
+            key={lecture.id}
+            id={lecture.id}
+            title={lecture.title}
+            date={lecture.date}
+            time={lecture.time}
+          />
+        ))}
       </div>
     </>
   );
