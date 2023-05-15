@@ -54,7 +54,7 @@ except Exception as e:
 
 # create collection
 db = client["guestlecturemanagements"]
-collection = db["users"]
+collection = db["Users"]
 
 
 
@@ -62,7 +62,7 @@ collection = db["users"]
 
 @app.route('/sign-up', methods = ['GET', 'POST'])
 def signUp():
-    collection = db["users"]
+    collection = db["Users"]
     if request.method == 'POST':
         name = request.form.get("name")
         userType = request.form.get("type")
@@ -77,7 +77,7 @@ def signUp():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-    collection = db["users"]
+    collection = db["Users"]
     if request.method == 'POST':
         email = request.form.get("email")
         password = request.form.get('password')
@@ -86,6 +86,24 @@ def login():
             return True
         else:
             return False
+        
+@app.route('/addHall', methods = ['GET', 'POST'])
+def addHall():
+    collection = db["LectureHalls"]
+    if request.method == 'POST':
+        name = request.form.get("name")
+        location = request.form.get("location")
+        capacity = request.form.get("capacity")
+        collection.insert_one({'name': name, 'location': location,'capacity': capacity})
+
+@app.route('/addLecture', methods = ['GET', 'POST'])
+def addLecture():
+    collection = db["Lectures"]
+    if request.method == 'POST':
+        name = request.form.get("name")
+        location = request.form.get("location")
+        capacity = request.form.get("capacity")
+        collection.insert_one({'name': name, 'location': location,'capacity': capacity})
 
 @app.route('/')
 def index():
