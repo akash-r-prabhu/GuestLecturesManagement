@@ -7,7 +7,7 @@ function validateLogin(event) {
     if (group === 'admin') {
       window.location.href = 'admindashboard.html';
     } else if (group === 'user') {
-      window.location.href = 'index.html';
+      window.location.href = 'homepage.html';
     } else {
       alert('Invalid credentials. Please try again.');
     }
