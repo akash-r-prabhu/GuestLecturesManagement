@@ -1,4 +1,5 @@
 import flask
+from flask import Flask, request, render_template
 from flask import jsonify
 from bson.json_util import dumps, loads
 
@@ -59,7 +60,32 @@ collection = db["users"]
 
 
 
+@app.route('/sign-up', methods = ['GET', 'POST'])
+def signUp():
+    collection = db["users"]
+    if request.method == 'POST':
+        name = request.form.get("name")
+        userType = request.form.get("type")
+        password = request.form.get("password")
+        dob = request.form.get("dob")
+        studentRollNo = request.form.get("rollno")
+        email = request.form.get("email")
+        if userType == "Student":
+            collection.insert_one({'name': name, 'type': userType, 'email': email, 'password': password,'dob': dob, 'studentRNo': studentRollNo} )
+        else:
+            collection.insert_one({'name': name, 'type': userType, 'email': email, 'password': password,'dob': dob})
 
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    collection = db["users"]
+    if request.method == 'POST':
+        email = request.form.get("email")
+        password = request.form.get('password')
+        cursor = collection.find({'email': email})
+        if cursor['password'] == password:
+            return True
+        else:
+            return False
 
 @app.route('/')
 def index():
