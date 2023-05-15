@@ -1,27 +1,15 @@
 import React from "react";
 import "./index.css";
 import App from "./App";
-import { Homepage, ViewLectures } from "./pages";
-// react router v5
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch, // was Routes
-} from "react-router-dom";
+import { StateProvider } from "./context/StateProvider";
+import reducer, { initialState } from "./context/reducer";
 import ReactDOM from "react-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Homepage />
-        </Route>
-        <Route path="/viewLectures">
-          <ViewLectures />
-        </Route>
-      </Switch>
-    </Router>
+    <StateProvider initialState={initialState} reducer={reducer}>
+      <App />
+    </StateProvider>
   </React.StrictMode>
 );

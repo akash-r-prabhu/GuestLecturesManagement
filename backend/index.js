@@ -5,6 +5,7 @@ var fs = require("fs");
 var db = require("./firebase.js").db;
 var express = require("express");
 var cors = require("cors");
+const e = require("express");
 var app = express();
 
 app.use(cors());
@@ -34,16 +35,62 @@ app.listen(8001, function () {
   console.log("CORS-enabled web server listening on port 8001");
 });
 
-// to register a student to database
+// to register a user to database Users { name,type,email, password,dob,studentrollno}
 app.get("/register", async function (req, res) {
   const queryObject = url.parse(req.url, true).query;
-  const student = {
+  const user = {
     name: queryObject.name,
+    type: queryObject.type,
     email: queryObject.email,
-    phone: queryObject.phone,
-    lecture: queryObject.lecture,
+    password: queryObject.password,
+    dob: queryObject.dob,
+    studentrollno: queryObject.studentrollno,
   };
-  const docRef = await db.collection("students").add(student);
-  res.send("Student registered successfully");
+  const docRef = await db.collection("users").add(user);
+  if (docRef.id) {
+    res.send("success");
+  } else {
+    res.send("User not added");
+  }
 });
-// sample url: http://localhost:8001/register?name=student1&email=student1@gmail&phone=123456789&lecture=lecture1
+// sample url: http://localhost:8001/register?name=abc&type=student&email=abc@gmail&password=123&dob=2021-10-10&studentrollno=123
+
+app.get("/checkUser", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const email = queryObject.email;
+  const password = queryObject.password;
+  const querySnapshot = await db.collection("users").get();
+
+  let found = false; // Flag variable
+
+  querySnapshot.forEach((doc) => {
+    if (doc.data().email == email && doc.data().password == password) {
+      found = true;
+      res.send(doc.data());
+    }
+  });
+
+  if (!found) {
+    res.send("Invalid Credentials");
+  }
+});
+
+app.get("/checkEmail", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const email = queryObject.email;
+  const querySnapshot = await db.collection("users").get();
+
+  let found = false; // Flag variable
+
+  querySnapshot.forEach((doc) => {
+    if (doc.data().email == email) {
+      found = true;
+    }
+  });
+
+  if (found) {
+    res.send("success");
+  } else {
+    res.send("Invalid Credentials");
+  }
+});
