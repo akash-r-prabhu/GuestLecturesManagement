@@ -15,15 +15,15 @@ import {
 function App() {
   const [{ user }, dispatch] = useStateValue();
 
-  useEffect(() => {
-    const user = reactLocalStorage.getObject("user");
-    if (user) {
-      dispatch({
-        type: "SET_USER",
-        user: user,
-      });
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   const user = reactLocalStorage.getObject("user");
+  //   if (user) {
+  //     dispatch({
+  //       type: "SET_USER",
+  //       user: user,
+  //     });
+  //   }
+  // }, [user]);
 
   return !user ? (
     // <Login />

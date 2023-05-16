@@ -1,63 +1,74 @@
 import React from "react";
+import { useStateValue } from "../../context/StateProvider";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "./style/style.css";
-// import all images from img folder
-import search from "../../images/search.png";
-import akash from "../../images/akash.jfif";
 
 function Navbar() {
+  const [{ user }, dispatch] = useStateValue();
+  var logout = () => {
+    dispatch({
+      type: "LOGOUT",
+    });
+    localStorage.clear();
+  };
+
   return (
     <>
-      {/* Nav bar header */}
-      <header className="header">
-        <div className="container">
-          <div className="row align-items-center justify-content-between">
-            <div className="logo">
-              <a href="#" className="abc" style={{ color: "#019ED3" }}>
-                <b>GLMS</b>
-              </a>
-            </div>
-            <button type="button" className="nav-toggler">
-              <span />
-            </button>
-            <nav className="nav">
-              <ul>
-                <div className="wrap">
-                  <div className="search">
-                    <input
-                      type="text"
-                      className="searchTerm"
-                      placeholder="What are you looking for?"
-                    />
-                    <button type="submit" className="searchButton">
-                      <img src={search} alt="" />
-                    </button>
-                  </div>
-                </div>
-                <li>
-                  <a href="/">Home</a>
-                </li>
-                <li>
-                  <a href="/viewLectures">ViewLectures</a>
-                </li>
-                <li>
-                  <a>Feedback</a>
-                </li>
-                <li>
-                  <a>calender</a>
-                </li>
-                <li>
-                  <a>about</a>
-                </li>
-                <li>
-                  <a href="../../profilesection/index.html">
-                    <img src={akash} alt="" style={{ height: 30 }} />
-                  </a>
-                </li>
-              </ul>
-            </nav>
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Lato"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
+      <div className="w3-top">
+        <div className="w3-bar w3-black w3-card">
+          <a
+            className="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right"
+            href="javascript:void(0)"
+            onclick="myFunction()"
+            title="Toggle Navigation Menu"
+          >
+            <i className="fa fa-bars" />
+          </a>
+
+          <Link to="/" className="w3-bar-item w3-button w3-padding-large">
+            HOME
+          </Link>
+          <Link
+            to="/viewLectures"
+            className="w3-bar-item w3-button w3-padding-large"
+          >
+            ViewLectures
+          </Link>
+          <a
+            href="fb.html"
+            className="w3-bar-item w3-button w3-padding-large w3-hide-small"
+          >
+            FEED BACK
+          </a>
+          <a
+            href="#contact"
+            className="w3-bar-item w3-button w3-padding-large w3-hide-small"
+          >
+            CONTACT
+          </a>
+          <a
+            href="javascript:void(0)"
+            className="w3-padding-large w3-hover-red w3-hide-small w3-right"
+          >
+            <i className="fa fa-search" />
+          </a>
+          <div
+            className="w3-bar-item w3-button w3-padding-large w3-hide-small"
+            onClick={logout}
+          >
+            Logout
           </div>
         </div>
-      </header>
+      </div>
     </>
   );
 }
