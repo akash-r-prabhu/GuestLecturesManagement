@@ -94,3 +94,43 @@ app.get("/checkEmail", async function (req, res) {
     res.send("Invalid Credentials");
   }
 });
+
+app.get("/lectureHalls", async function (req, res) {
+  const lectureHalls = [];
+  const querySnapshot = await db.collection("lectureHalls").get();
+  querySnapshot.forEach((doc) => {
+    lectureHalls.push({
+      id: doc.id,
+      name: doc.data().name,
+      capacity: doc.data().capacity,
+    });
+  });
+  res.send(lectureHalls);
+});
+
+app.get("/addLectureHall", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const lectureHall = {
+    name: queryObject.name,
+    capacity: queryObject.capacity,
+  };
+  const docRef = await db
+    .collection("lectureHalls")
+    .add(lectureHall)
+    .then((docRef) => {
+      res.send("success");
+    })
+    .catch((error) => {
+      res.send("error");
+    });
+});
+
+// sample url: http://localhost:8001/addLectureHall?name=lectureHall1&capacity=100
+
+// deleteHall by id
+app.get("/deleteHall", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const id = queryObject.id;
+  const docRef = await db.collection("lectureHalls").doc(id).delete();
+  res.send("success");
+});

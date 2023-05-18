@@ -1,6 +1,6 @@
 import React from "react";
 import { useStateValue } from "../../context/StateProvider";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 import "./style/style.css";
 
 function Navbar() {
@@ -34,7 +34,7 @@ function Navbar() {
             <i className="fa fa-bars" />
           </a>
 
-          <Link to="/" className="w3-bar-item w3-button w3-padding-large">
+          <Link to="/0" className="w3-bar-item w3-button w3-padding-large">
             HOME
           </Link>
           <Link
