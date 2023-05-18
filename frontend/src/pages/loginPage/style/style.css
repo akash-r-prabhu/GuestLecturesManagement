@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200');
 
 body  {
-    background-image: url('https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg');
+    /* background-image: url('https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg');
   background-size:cover;
         -webkit-animation: slidein 100s;
         animation: slidein 100s;
@@ -13,7 +13,8 @@ body  {
         animation-iteration-count: infinite;
 
         -webkit-animation-direction: alternate;
-        animation-direction: alternate;              
+        animation-direction: alternate;      */
+        background: #2c3338;         
 }
 
 @-webkit-keyframes slidein {
@@ -34,49 +35,65 @@ to {background-position: -100px 0px;background-size:2750px;}
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   position: absolute;
   margin: auto;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(75, 75, 250, 0.3);
+  background: #292a2c;
   border-radius: 3px;
+  float: right;
+  color: white;
 }
-.center h1{
+h1{
   text-align:center;
   color:white;
   font-family: 'Source Code Pro', monospace;
   text-transform:uppercase;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .container {
     width: 400px;
-    margin: 0 auto;
+    margin-top: 10px;
+    margin: auto;
     padding: 20px;
-    background: linear-gradient(to bottom,#0c134f73, #0c134f5d);
+    border-radius: 20px;
+    background: rgb(84, 47, 104);
     border-radius: 5px;
     box-shadow: 0 0 10px #5c469c, 0 0 20px #5c469c;
     animation: glowing 2s ease-in-out infinite;
-    position: relative;
-    
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    color: white;
   }
   
   .container::before {
     content: '';
     position: absolute;
-    top: -10px;
+    /* top: -10px;
     left: -10px;
     right: -10px;
-    bottom: -10px;
+    bottom: -10px; */
     border-radius: 5px;
     background: linear-gradient(to bottom, #0c134f26, #8f94fb3b);
     z-index: -1;
-    opacity: 0.7;
+    opacity: 1;
     filter: blur(20px);
+    align-items: center;
   }
   
-  @keyframes glowing {
+  /* @keyframes glowing {
     0% {
       box-shadow: 0 0 10px #1d267d, 0 0 20px #1d267d;
     }
@@ -86,14 +103,21 @@ to {background-position: -100px 0px;background-size:2750px;}
     100% {
       box-shadow: 0 0 10px #d4adfc, 0 0 20px #d4adfc;
     }
-  }
+  } */
  h2{
 	text-align: center;
-    color:white;
+  color:white;
+  align-items: center;
+  justify-content: center;
 }
   .form-group {
+    display: inline-grid;
     margin-bottom: 10px;
-    width: 400px;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: black;
   }
   
   label {
@@ -104,15 +128,40 @@ to {background-position: -100px 0px;background-size:2750px;}
   
   input[type="text"],
   input[type="password"],
+  input[type="email"],
   select {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+    text-emphasis-color: black;
+    opacity: 1;
     width: 100%;
-    padding: 5px;
-    border-radius: 3px;
+    padding: 7px;
+    border-radius: 10px;
     border: none;
-    background-color: #f2f2f2;
+    background-color: #f4f0f0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: black;
+  }
+  ::placeholder{
+    color: black;
+    opacity: 1;
+    text-decoration: solid;
+  }
+  #date {
+    display: block;
   }
   input {
-    width: 400px;
+    width: 100%;
+    background-color: #f4f0f0;
+    padding: 7px 8px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: black;
   }
   
   .button-container {
@@ -120,12 +169,15 @@ to {background-position: -100px 0px;background-size:2750px;}
   }
   
   button {
-    padding: 8px 20px;
-    color: rgb(0, 0, 0);
+    padding: 10px 25px;
+    background-color: #db0859;
     border: none;
-    border-radius: 3px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    align-content: center;
+    justify-content: center;
+    color: white;
   }
   
   button:hover {
