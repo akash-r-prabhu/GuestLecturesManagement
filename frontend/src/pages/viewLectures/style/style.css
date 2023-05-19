@@ -181,7 +181,7 @@ body {
   
   .lecture-box {
     width: 300px;
-    height: 400px; /* Adjust the height as desired */
+    height: fit-content;
     padding: 20px;
     border-radius: 5px;
     margin: 10px;

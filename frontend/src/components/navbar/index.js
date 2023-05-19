@@ -34,7 +34,7 @@ function Navbar() {
             <i className="fa fa-bars" />
           </a>
 
-          <Link to="/0" className="w3-bar-item w3-button w3-padding-large">
+          <Link to="/" className="w3-bar-item w3-button w3-padding-large">
             HOME
           </Link>
           <Link

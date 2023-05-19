@@ -26,6 +26,7 @@ function App() {
   ) : (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Homepage />} />
         <Route path="/:id" element={<Homepage />} />
         <Route path="/viewLectures" element={<ViewLectures />} />
       </Routes>

@@ -7,10 +7,21 @@ import { useStateValue } from "../../context/StateProvider";
 import { useState } from "react";
 
 import "./style/style.css";
+import { use } from "express/lib/router";
 
 function LoginPage() {
   const [{ user }, dispatch] = useStateValue();
   const [registerOrlogin, setRegisterOrLogin] = useState("login");
+  const [formUserType, setFormUserType] = useState("student");
+
+  useEffect(() => {
+    if (formUserType == "student") {
+      document.getElementById("studentrollno2").style.display = "block";
+    } else {
+      document.getElementById("studentrollno2").style.display = "none";
+      document.getElementById("studentrollno2").required = false;
+    }
+  }, [formUserType]);
 
   useEffect(() => {
     if (registerOrlogin == "login") {
@@ -56,13 +67,14 @@ function LoginPage() {
           });
           reactLocalStorage.setObject("user", response.data);
           document.getElementById("loginForm").reset();
-        } else if (usertype == "faculty") {
-          swal("Login Successful", "Welcome Faculty", "success");
+        } else if (usertype == "lecturer") {
+          swal("Login Successful", "Welcome Lecturer", "success");
           dispatch({
             type: "SET_USER",
             user: response.data,
-            usertype: "faculty",
+            usertype: "lecturer",
           });
+
           reactLocalStorage.setObject("user", response.data);
           document.getElementById("loginForm").reset();
         } else if (usertype == "admin") {
@@ -160,6 +172,7 @@ function LoginPage() {
               <select id="usertype" name="usertype" required>
                 <option value="admin">Admin</option>
                 <option value="student">Student</option>
+                <option value="lecturer">Lecturer</option>
               </select>
             </div>
             <div className="form-group">
@@ -191,6 +204,17 @@ function LoginPage() {
 
               <label htmlFor="dob">Date of Birth:</label>
               <input type="date" id="dob2" name="dob" required />
+              <label htmlFor="type">User Type:</label>
+              <select
+                id="type2"
+                name="type"
+                required
+                onChange={(e) => setFormUserType(e.target.value)}
+              >
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+                <option value="lecturer">Lecturer</option>
+              </select>
 
               <label htmlFor="studentrollno">Student Roll No:</label>
               <input
@@ -200,11 +224,6 @@ function LoginPage() {
                 required
               />
 
-              <label htmlFor="type">User Type:</label>
-              <select id="type2" name="type" required>
-                <option value="student">Student</option>
-                <option value="admin">Admin</option>
-              </select>
               <br />
               <br />
               <br />

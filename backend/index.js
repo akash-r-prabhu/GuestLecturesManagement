@@ -5,22 +5,15 @@ var fs = require("fs");
 var db = require("./firebase.js").db;
 var express = require("express");
 var cors = require("cors");
+
+const bodyParser = require("body-parser");
 const e = require("express");
 var app = express();
 
 app.use(cors());
 
-app.get("/addLecture", async function (req, res) {
-  const queryObject = url.parse(req.url, true).query;
-  const lecture = {
-    title: queryObject.title,
-    date: queryObject.date,
-    time: queryObject.time,
-  };
-  const docRef = await db.collection("lectures").add(lecture);
-  res.send("Lecture added successfully");
-});
-// sample url: http://localhost:8001/addLecture?title=lecture1&date=2021-10-10&time=10:00
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.get("/lectureList", async function (req, res) {
   const lectures = [];
@@ -46,6 +39,11 @@ app.get("/register", async function (req, res) {
     dob: queryObject.dob,
     studentrollno: queryObject.studentrollno,
   };
+  if (queryObject.type == "lecturer") {
+    user.studentrollno = "";
+    user.status = "pending";
+  }
+
   const docRef = await db.collection("users").add(user);
   if (docRef.id) {
     res.send("success");
@@ -132,5 +130,94 @@ app.get("/deleteHall", async function (req, res) {
   const queryObject = url.parse(req.url, true).query;
   const id = queryObject.id;
   const docRef = await db.collection("lectureHalls").doc(id).delete();
+  res.send("success");
+});
+
+app.get("/lecturerRequests", async function (req, res) {
+  const lecturerRequests = [];
+  const querySnapshot = await db.collection("users").get();
+  querySnapshot.forEach((doc) => {
+    if (doc.data().type == "lecturer" && doc.data().status == "pending") {
+      lecturerRequests.push({
+        id: doc.id,
+        name: doc.data().name,
+        email: doc.data().email,
+        dob: doc.data().dob,
+        type: doc.data().type,
+        status: doc.data().status,
+      });
+    }
+  });
+  res.send(lecturerRequests);
+});
+
+app.get("/lecturerList", async function (req, res) {
+  const lecturerList = [];
+  const querySnapshot = await db.collection("users").get();
+  querySnapshot.forEach((doc) => {
+    if (doc.data().type == "lecturer" && doc.data().status == "approved") {
+      lecturerList.push({
+        id: doc.id,
+        name: doc.data().name,
+        email: doc.data().email,
+        dob: doc.data().dob,
+        type: doc.data().type,
+        status: doc.data().status,
+      });
+    }
+  });
+  res.send(lecturerList);
+});
+
+app.post("/approveLecturer", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const id = queryObject.id;
+  const docRef = await db.collection("users").doc(id).update({
+    status: "approved",
+  });
+  res.send("success");
+});
+
+app.post("/rejectLecturer", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const id = queryObject.id;
+  const docRef = await db.collection("users").doc(id).delete();
+  res.send("success");
+});
+
+app.get("/addLecture", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  console.log(queryObject);
+  const lecture = {
+    title: queryObject.title,
+    date: queryObject.date,
+    time: queryObject.time,
+    lectureHall: queryObject.lectureHall,
+    lecturer: queryObject.lecturer,
+    status: "pending",
+  };
+  const docRef = await db
+
+    .collection("lectures")
+    .add(lecture)
+    .then((docRef) => {
+      res.send("success");
+    })
+    .catch((error) => {
+      res.send("error");
+    });
+});
+app.get("/rejectLecture", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const id = queryObject.id;
+  const docRef = await db.collection("lectures").doc(id).delete();
+  res.send("success");
+});
+app.get("/acceptLecture", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const id = queryObject.id;
+  const docRef = await db.collection("lectures").doc(id).update({
+    status: "accepted",
+  });
   res.send("success");
 });
