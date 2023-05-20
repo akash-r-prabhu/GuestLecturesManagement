@@ -89,6 +89,8 @@ app.get("/checkUser", async function (req, res) {
   querySnapshot.forEach((doc) => {
     if (doc.data().email == email && doc.data().password == password) {
       found = true;
+      // send data and doc id
+      doc.data().id = doc.id;
       res.send(doc.data());
     }
   });
@@ -382,14 +384,14 @@ app.get("/acceptLectureRequest", async function (req, res) {
 app.get("/registerForLecture", async function (req, res) {
   const queryObject = url.parse(req.url, true).query;
   const docId = queryObject.docId;
-  const studentName = queryObject.name;
+  const studentId = queryObject.studentId;
   const docRef = await db
     .collection("lectures")
     .doc(docId)
     .collection("students")
-    .doc(studentName)
+    .doc(studentId)
     .set({
-      name: studentName,
+      studentId: studentId,
     })
     .then((docRef) => {
       res.send("success");

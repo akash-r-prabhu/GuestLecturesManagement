@@ -64,6 +64,7 @@ function LoginPage() {
             type: "SET_USER",
             user: response.data,
             usertype: "student",
+            userid: response.data.id,
           });
           reactLocalStorage.setObject("user", response.data);
           document.getElementById("loginForm").reset();
@@ -73,6 +74,7 @@ function LoginPage() {
             type: "SET_USER",
             user: response.data,
             usertype: "lecturer",
+            userid: response.data.id,
           });
 
           reactLocalStorage.setObject("user", response.data);
@@ -83,6 +85,7 @@ function LoginPage() {
             type: "SET_USER",
             user: response.data,
             usertype: "admin",
+            userid: response.data.id,
           });
           reactLocalStorage.setObject("user", response.data);
           document.getElementById("loginForm").reset();

@@ -3,7 +3,7 @@ import { Navbar } from "../../components";
 import "./style/mainbody.css";
 import "./style/sidebar.css";
 import "./style/activities.css";
-import { AdminDashboard } from "../index";
+import { AdminDashboard, StudentDashboard } from "../index";
 import { useStateValue } from "../../context/StateProvider";
 
 function Homepage() {
@@ -19,7 +19,7 @@ function Homepage() {
     case "admin":
       return <AdminDashboard />;
     case "student":
-      return <h1>Student Dashboard</h1>;
+      return <StudentDashboard />;
     case "lecturer":
       return (
         <>

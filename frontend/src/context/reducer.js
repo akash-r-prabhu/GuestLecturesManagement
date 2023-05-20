@@ -14,12 +14,14 @@ const reducer = (state, action) => {
         ...state,
         user: action.user,
         usertype: action.usertype,
+        userid: action.userid,
       };
     case actionTypes.LOGOUT:
       return {
         ...state,
         user: null,
         usertype: null,
+        userid: null,
       };
 
     default:

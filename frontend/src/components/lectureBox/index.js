@@ -8,6 +8,10 @@ import { use } from "express/lib/router";
 function LectureBox(props) {
   const [{ user }, dispatch] = useStateValue();
 
+  useEffect(() => {
+    console.log(user);
+  }, []);
+
   function acceptLectureRequest(id) {
     return function () {
       axios
@@ -39,7 +43,7 @@ function LectureBox(props) {
       .get("http://localhost:8001/registerForLecture", {
         params: {
           docId: id,
-          name: user.name,
+          studentId: user.studentrollno,
         },
       })
       .then((res) => {
