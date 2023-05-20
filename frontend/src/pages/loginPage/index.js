@@ -149,68 +149,112 @@ function LoginPage() {
       <title>LOGIN</title>
       {/* <link rel="stylesheet" type="text/css" href="lstyle.css" /> */}
 
-      <h1>
-        WELCOME TO GUEST LECTURE MANAGEMENT SYSTEM
-      </h1>
+      <h1>WELCOME TO GUEST LECTURE MANAGEMENT SYSTEM</h1>
       <br />
       <br />
       <br />
       <br />
 
-      <p>
-        <div className="center">
-          <div className="container">
-            <form id="loginForm" onSubmit={onsubmitform1}>
-              <h2>LOGIN</h2>
-              <div className="form-group">
-                {/* <label htmlFor="username">Email:</label> */}
-                <input type="email" id="username" name="username" required placeholder="Email id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Enter a valid email id"/>
-              </div><br/>
-              <div className="form-group">
-                {/* <label htmlFor="password">Password:</label> */}
-                <input type="password" id="password" name="password" required placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/>
-              </div><br/>
-              <div className="form-group">
-                {/* <label htmlFor="usertype">User Type:</label> */}
-                <select id="usertype" name="usertype" required>
-                  <option value="admin">Admin</option>
-                  <option value="student">Student</option>
+      <div className="center">
+        <div className="container">
+          <form id="loginForm" onSubmit={onsubmitform1}>
+            <h2>LOGIN</h2>
+            <div className="form-group">
+              {/* <label htmlFor="username">Email:</label> */}
+              <input
+                type="email"
+                id="username"
+                name="username"
+                required
+                placeholder="Email id"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                title="Enter a valid email id"
+              />
+            </div>
+            <br />
+            <div className="form-group">
+              {/* <label htmlFor="password">Password:</label> */}
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                placeholder="Password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+              />
+            </div>
+            <br />
+            <div className="form-group">
+              {/* <label htmlFor="usertype">User Type:</label> */}
+              <select id="usertype" name="usertype" required>
+                <option value="admin">Admin</option>
+                <option value="student">Student</option>
                 <option value="lecturer">Lecturer</option>
-                  <option value="lecturer">Lecturer</option>
-                </select>
-              </div><br />
-              <div className="form-group">
-                <button type="submit">LOGIN</button>
-              </div>
+                <option value="lecturer">Lecturer</option>
+              </select>
+            </div>
+            <br />
+            <div className="form-group">
+              <button type="submit">LOGIN</button>
+            </div>
+            <br />
+            <br />
+            <label>New User?</label>
+            <button onClick={toggleFormDisplay}>SIGN UP</button>
+          </form>
+
+          {/* if not registered register */}
+
+          {/* REGISTRATION FOR Users { name,type,email, password,dob,studentrollno} */}
+          <form id="registerForm" onSubmit={onsubmitform2}>
+            <h2>SIGN UP</h2>
+            <div className="form-group">
+              {/* <label htmlFor="name">Name:</label> */}
+              <input
+                type="text"
+                id="name2"
+                name="name"
+                required
+                placeholder="Name"
+              />
               <br />
+
+              {/* <label htmlFor="email">Email:</label> */}
+              <input
+                type="email"
+                id="email2"
+                name="email"
+                required
+                placeholder="Email id"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                title="Enter a valid email id"
+              />
               <br />
-              <label>New User?</label>
-              <button onClick={toggleFormDisplay}>SIGN UP</button>
-            </form>
-
-
-            {/* if not registered register */}
-
-            {/* REGISTRATION FOR Users { name,type,email, password,dob,studentrollno} */}
-            <form id="registerForm" onSubmit={onsubmitform2}>
-              <h2>SIGN UP</h2>
-              <div className="form-group">
-                {/* <label htmlFor="name">Name:</label> */}
-                <input type="text" id="name2" name="name" required placeholder="Name"/><br/>
-
-                {/* <label htmlFor="email">Email:</label> */}
-                <input type="email" id="email2" name="email" required placeholder="Email id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Enter a valid email id"/>
-                <br/>
-                {/* <label htmlFor="password">Password:</label> */}
-                <input type="password" id="password2" name="password" required placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/>
-                <br />
-                {/* <label htmlFor="dob">Date of Birth:</label> */}
-                <input onfocus="(this.type='date')" type="text" id="dob2" name="dob" required placeholder="Date of Birth"/><br />
-
-              <label htmlFor="password">Password:</label>
-              <input type="password" id="password2" name="password" required />
+              {/* <label htmlFor="password">Password:</label> */}
+              <input
+                type="password"
+                id="password2"
+                name="password"
+                required
+                placeholder="Password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+              />
+              <br />
+              {/* <label htmlFor="dob">Date of Birth:</label> */}
+              {/* <input
+                onfocus="(this.type='date')"
+                type="text"
+                id="dob2"
+                name="dob"
+                required
+                placeholder="Date of Birth"
+              /> */}
+              <br />
 
               <label htmlFor="dob">Date of Birth:</label>
+
               <input type="date" id="dob2" name="dob" required />
 
               <label htmlFor="studentrollno">Student Roll No:</label>
@@ -218,13 +262,14 @@ function LoginPage() {
                 type="text"
                 id="studentrollno2"
                 name="studentrollno"
-                required
+                // required
               />
 
               <label htmlFor="type">User Type:</label>
               <select id="type2" name="type" required>
                 <option value="student">Student</option>
                 <option value="admin">Admin</option>
+                <option value="lecturer">Lecturer</option>
               </select>
               <br />
               <br />

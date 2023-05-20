@@ -11,45 +11,48 @@ function ViewLectures() {
   const [lecturer, setLecturer] = useState([]);
   const [lectureHall, setLectureHall] = useState([]);
   const [{ user }, dispatch] = useStateValue();
+  const [lecturesForLecturer, setLecturesForLecturer] = useState([]);
+  const [lecturesForStudent, setLecturesForStudent] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8001/lecturesForLecturer", {
+        params: {
+          name: user.name,
+        },
+      })
+      .then((res) => {
+        setLecturesForLecturer(res.data);
+      });
+
+    axios
+      .get("http://localhost:8001/lecturesForStudent", {
+        params: {
+          name: user.name,
+        },
+      })
+      .then((res) => {
+        setLecturesForStudent(res.data);
+      });
+  }, []);
 
   useEffect(() => {
     axios.get("http://localhost:8001/lectureHalls").then((res) => {
       setLectureHall(res.data);
     });
-  }, [lectureHall]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      axios
-        .get("http://localhost:8001/lectureList", {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
-        .then((res) => {
-          setLectures(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, 2000);
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      axios
-        .get("http://localhost:8001/lecturerList", {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
-        .then((res) => {
-          setLecturer(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, 2000);
+    axios.get("http://localhost:8001/lectureList").then((res) => {
+      setLectures(res.data);
+    });
+    console.log(lectures);
+  }, []);
+
+  useEffect(() => {
+    axios.get("http://localhost:8001/lecturerList").then((res) => {
+      setLecturer(res.data);
+    });
   }, []);
 
   // use no cors mode
@@ -87,6 +90,12 @@ function ViewLectures() {
         const time = document.getElementById("swal-input3").value;
         const lecturer = document.getElementById("swal-input4").value;
         const lectureHall = document.getElementById("swal-input5").value;
+
+        console.log(title);
+        console.log(date);
+        console.log(time);
+        console.log(lecturer);
+        console.log(lectureHall);
 
         // pass in body
         axios
@@ -143,10 +152,41 @@ function ViewLectures() {
         <br />
         <br />
         <br />
-
-        <button className="addLectureButton" onClick={() => addLecture()}>
-          Add Lecture
-        </button>
+        <div className="c">
+          {lecturesForLecturer.map((lecture) => (
+            <LectureBox
+              key={lecture.id}
+              id={lecture.id}
+              title={lecture.title}
+              date={lecture.date}
+              time={lecture.time}
+              lecturer={lecture.lecturer}
+              status={lecture.status}
+            />
+          ))}
+        </div>
+      </>
+    );
+  } else if (user.type === "student") {
+    return (
+      <>
+        <Navbar />
+        <br />
+        <br />
+        <br />
+        <div className="c">
+          {lecturesForStudent.map((lecture) => (
+            <LectureBox
+              key={lecture.id}
+              id={lecture.id}
+              title={lecture.title}
+              date={lecture.date}
+              time={lecture.time}
+              lecturer={lecture.lecturer}
+              status={lecture.status}
+            />
+          ))}
+        </div>
       </>
     );
   }

@@ -15,15 +15,11 @@ function AdminDashboard() {
   const Swal = require("sweetalert2");
 
   useEffect(() => {
-    async function fetchLecturerRequests() {
-      const request = await axios.get("http://localhost:8001/lecturerRequests");
-      setLecturerRequests(request.data);
-      return request;
-    }
-    setTimeout(() => {
-      fetchLecturerRequests();
-    }, 1000);
-  }, [lecturerRequests]);
+    axios.get("http://localhost:8001/lecturerRequests").then((res) => {
+      setLecturerRequests(res.data);
+    });
+  }, []);
+
   async function approveLecturer(id) {
     const request = await axios.post(
       `http://localhost:8001/approveLecturer?id=${id}`
@@ -47,7 +43,7 @@ function AdminDashboard() {
     setTimeout(() => {
       fetchData();
     }, 1000);
-  }, [LectureHalls]);
+  }, []);
 
   let { id } = useParams();
   console.log(id);
