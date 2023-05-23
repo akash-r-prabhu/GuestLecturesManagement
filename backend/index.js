@@ -173,7 +173,8 @@ app.get("/lecturerRequests", async function (req, res) {
   const lecturerRequests = [];
 
   // Set up a listener for real-time updates
-  db.collection("users")
+  const unsubscribe = db
+    .collection("users")
     .where("type", "==", "lecturer")
     .where("status", "==", "pending")
     .onSnapshot((snapshot) => {
@@ -193,6 +194,7 @@ app.get("/lecturerRequests", async function (req, res) {
 
       // Send the updated lecturer requests
       res.send(lecturerRequests);
+      unsubscribe();
     });
 });
 
