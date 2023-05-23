@@ -161,7 +161,7 @@ function LoginPage() {
       <div className="center">
         <div className="container">
           <form id="loginForm" onSubmit={onsubmitform1}>
-            <h2>Guest Lecture Management System</h2>
+            <h2>SIGN IN</h2>
             <div className="form-group">
               {/* <label htmlFor="username">Email:</label> */}
               <input
@@ -186,14 +186,13 @@ function LoginPage() {
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
               />
-            </div>
+            
             <br />
-            <div className="form-group">
+            
               {/* <label htmlFor="usertype">User Type:</label> */}
               <select id="usertype" name="usertype" required>
                 <option value="admin">Admin</option>
                 <option value="student">Student</option>
-                <option value="lecturer">Lecturer</option>
                 <option value="lecturer">Lecturer</option>
               </select>
             </div>
@@ -203,8 +202,8 @@ function LoginPage() {
             </div>
             <br />
             <br />
-            <label>New User?</label>
-            <button onClick={toggleFormDisplay}>SIGN UP</button>
+            <label>New User?&nbsp;&nbsp;&nbsp; <span ><button onClick={toggleFormDisplay}>SIGN UP</button></span></label>
+            
           </form>
 
           {/* if not registered register */}
@@ -258,14 +257,15 @@ function LoginPage() {
 
               <label htmlFor="dob">Date of Birth:</label>
 
-              <input type="date" id="dob2" name="dob" required />
+              <input type="date" id="dob2" name="dob" required /><br/>
 
-              <label htmlFor="studentrollno">Student Roll No:</label>
+              {/* <label htmlFor="studentrollno">Student Roll No:</label> */}
               <input
                 type="text"
                 id="studentrollno2"
                 name="studentrollno"
                 // required
+                placeholder="Student Roll Number"
               />
 
               <label htmlFor="type">User Type:</label>
@@ -277,12 +277,10 @@ function LoginPage() {
               <br />
               <br />
               <br />
-              <button type="submit">Register</button>
-              <br />
-              <br />
+              <button type="submit">SIGN UP</button>
               <br />
               <label>Already registered?</label>
-              <button onClick={toggleFormDisplay}>Login</button>
+              <button onClick={toggleFormDisplay}>LOGIN</button>
             </div>
           </form>
         </div>

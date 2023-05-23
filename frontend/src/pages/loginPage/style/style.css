@@ -14,7 +14,8 @@ body  {
 
         -webkit-animation-direction: alternate;
         animation-direction: alternate;      */
-        background: #2c3338;         
+        /* background: #2c3338;          */
+        background-color:rgb(84, 47, 104)(to top right,#fc2c77 0%,#6c4079 100%);
 }
 
 @-webkit-keyframes slidein {
@@ -42,7 +43,7 @@ to {background-position: -100px 0px;background-size:2750px;}
   right: 0;
   bottom: 0;
   left: 0;
-  background: #292a2c;
+  background: linear-gradient(to top right,#fc2c77 0%,#6c4079 100%);
   border-radius: 3px;
   float: right;
   color: white;
@@ -63,19 +64,19 @@ h1{
 
 .container {
     width: 400px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     margin: auto;
-    padding: 20px;
+    padding: 10px;
     border-radius: 20px;
-    background: rgb(84, 47, 104);
+    background: rgb(161, 155, 155);
     border-radius: 5px;
-    box-shadow: 0 0 10px #5c469c, 0 0 20px #5c469c;
+    box-shadow: 0 0 10px #000000, 0 0 0px #242323;
     animation: glowing 2s ease-in-out infinite;
     position: absolute;
     align-items: center;
     justify-content: center;
     align-self: center;
-    color: white;
+    color: rgb(2, 2, 2);
   }
   
   .container::before {
@@ -104,11 +105,12 @@ h1{
       box-shadow: 0 0 10px #d4adfc, 0 0 20px #d4adfc;
     }
   } */
- h2{
+h2{
 	text-align: center;
-  color:white;
+  color:black;
   align-items: center;
   justify-content: center;
+  font-family: 'Courier New', Courier, monospace;
 }
   .form-group {
     display: inline-grid;
@@ -123,45 +125,49 @@ h1{
   label {
     display: block;
     margin-bottom: 5px;
-    color: white;
+    color: black;
   }
   
   input[type="text"],
   input[type="password"],
   input[type="email"],
+  input[type="date"],
   select {
     font-family: 'Courier New', Courier, monospace;
     font-size: medium;
-    text-emphasis-color: black;
+    text-emphasis-color: white;
     opacity: 1;
     width: 100%;
     padding: 7px;
     border-radius: 10px;
     border: none;
-    background-color: #f4f0f0;
+    background-color: #e8dcdc;
     align-items: center;
     text-align: center;
     justify-content: center;
-    color: black;
+    color: rgb(14, 14, 14);
+    border: #000000;
   }
   ::placeholder{
-    color: black;
+    color: rgb(0, 0, 0);
     opacity: 1;
     text-decoration: solid;
   }
   #date {
     display: block;
+    color: black;
+    background-color: #2f2d2d;
   }
   input {
     width: 100%;
-    background-color: #f4f0f0;
+    background-color: #2f2d2d;
     padding: 7px 8px;
     border-radius: 10px;
     border: none;
     text-align: center;
     align-items: center;
     justify-content: center;
-    color: black;
+    color: rgb(9, 9, 9);
   }
   
   .button-container {
@@ -182,8 +188,9 @@ h1{
   
   button:hover {
     background-color: #45a049;
+    
   }
-  
+
   .container.blue button {
     background-color: #4e54c8;
   }
