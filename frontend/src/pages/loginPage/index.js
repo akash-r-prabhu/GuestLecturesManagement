@@ -161,7 +161,7 @@ function LoginPage() {
       <div className="center">
         <div className="container">
           <form id="loginForm" onSubmit={onsubmitform1}>
-            <h2>LOGIN</h2>
+            <h2>Guest Lecture Management System</h2>
             <div className="form-group">
               {/* <label htmlFor="username">Email:</label> */}
               <input
