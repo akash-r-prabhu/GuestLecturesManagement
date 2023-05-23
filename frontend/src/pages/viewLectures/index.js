@@ -126,7 +126,11 @@ function ViewLectures() {
         <br />
         <br />
 
-        <button className="addLectureButton" onClick={() => addLecture()}>
+        <button
+          style={{ "background-color": "#EE2B47" }}
+          className="addLectureButton"
+          onClick={() => addLecture()}
+        >
           Add Lecture
         </button>
 

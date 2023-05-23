@@ -103,6 +103,7 @@ function RoomManagement(props) {
         Add Room
       </button>
       <br />
+      <br />
       <div className="room-container">
         {props.rooms.map((room) => {
           return (

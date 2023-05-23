@@ -7,7 +7,7 @@ function StudentDashboard() {
       <Navbar />
       <br />
       <br />
-      StudentDashboard
+      <h1>Student Homepage</h1>
     </>
   );
 }

@@ -1,35 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200');
 
-body  {
-    /* background-image: url('https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg');
-  background-size:cover;
-        -webkit-animation: slidein 100s;
-        animation: slidein 100s;
-
-        -webkit-animation-fill-mode: forwards;
-        animation-fill-mode: forwards;
-
-        -webkit-animation-iteration-count: infinite;
-        animation-iteration-count: infinite;
-
-        -webkit-animation-direction: alternate;
-        animation-direction: alternate;      */
-        /* background: #2c3338;          */
-        background-color:rgb(84, 47, 104)(to top right,#fc2c77 0%,#6c4079 100%);
-}
-
-@-webkit-keyframes slidein {
-from {background-position: top; background-size:3000px; }
-to {background-position: -100px 0px;background-size:2750px;}
-}
-
-@keyframes slidein {
-from {background-position: top;background-size:3000px; }
-to {background-position: -100px 0px;background-size:2750px;}
-
-}
-
-
 
 .center
 {
@@ -43,7 +13,7 @@ to {background-position: -100px 0px;background-size:2750px;}
   right: 0;
   bottom: 0;
   left: 0;
-  background: linear-gradient(to top right,#fc2c77 0%,#6c4079 100%);
+  background: #34374C;
   border-radius: 3px;
   float: right;
   color: white;
@@ -107,7 +77,7 @@ h1{
   } */
 h2{
 	text-align: center;
-  color:black;
+  color:#2C2E3E;
   align-items: center;
   justify-content: center;
   font-family: 'Courier New', Courier, monospace;
@@ -149,7 +119,7 @@ h2{
     border: #000000;
   }
   ::placeholder{
-    color: rgb(0, 0, 0);
+    color: #2C2E3E;
     opacity: 1;
     text-decoration: solid;
   }
@@ -176,7 +146,7 @@ h2{
   
   button {
     padding: 10px 25px;
-    background-color: #db0859;
+    background-color: #EE2B47;
     border: none;
     border-radius: 8px;
     cursor: pointer;

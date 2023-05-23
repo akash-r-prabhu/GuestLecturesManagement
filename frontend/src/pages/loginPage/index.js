@@ -12,7 +12,20 @@ import { use } from "express/lib/router";
 function LoginPage() {
   const [{ user }, dispatch] = useStateValue();
   const [registerOrlogin, setRegisterOrLogin] = useState("login");
-  const [formUserType, setFormUserType] = useState("student");
+  const [formUserType, setFormUserType] = useState();
+
+  useEffect(() => {
+    // dob2 type = text on focus
+    document.getElementById("dob2").addEventListener("focus", function () {
+      document.getElementById("dob2").type = "date";
+    });
+
+    // dob2 type = date on blur
+    document.getElementById("dob2").addEventListener("blur", function () {
+      document.getElementById("dob2").type = "text";
+      document.getElementById("dob2").placeholder = "Date of Birth";
+    });
+  }, []);
 
   useEffect(() => {
     if (formUserType == "student") {
@@ -150,107 +163,111 @@ function LoginPage() {
   }
   return (
     <>
-      <title>LOGIN</title>
-      {/* <link rel="stylesheet" type="text/css" href="lstyle.css" /> */}
+      <div className="loginBoxLeft">
+        {/* <img src={logo} className="logo" /> */}
+      </div>
+      <>
+        <title>LOGIN</title>
+        {/* <link rel="stylesheet" type="text/css" href="lstyle.css" /> */}
 
-      <h1>WELCOME TO GUEST LECTURE MANAGEMENT SYSTEM</h1>
-      <br />
-      <br />
-      <br />
-      <br />
+        <h1>WELCOME TO GUEST LECTURE MANAGEMENT SYSTEM</h1>
+        <br />
+        <br />
+        <br />
+        <br />
 
-      <div className="center">
-        <div className="container">
-          <form id="loginForm" onSubmit={onsubmitform1}>
-            <h2>SIGN IN</h2>
-            <div className="form-group">
-              {/* <label htmlFor="username">Email:</label> */}
-              <input
-                type="email"
-                id="username"
-                name="username"
-                required
-                placeholder="Email id"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                title="Enter a valid email id"
-              />
-            </div>
-            <br />
-            <div className="form-group">
-              {/* <label htmlFor="password">Password:</label> */}
-              <input
-                type="password"
-                id="password"
-                name="password"
-                required
-                placeholder="Password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-              />
-
+        <div className="center">
+          <div className="container">
+            <form id="loginForm" onSubmit={onsubmitform1}>
+              <h2>SIGN IN</h2>
+              <div className="form-group">
+                {/* <label htmlFor="username">Email:</label> */}
+                <input
+                  type="email"
+                  id="username"
+                  name="username"
+                  required
+                  placeholder="Email id"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  title="Enter a valid email id"
+                />
+              </div>
               <br />
+              <div className="form-group">
+                {/* <label htmlFor="password">Password:</label> */}
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                  placeholder="Password"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                />
 
-              {/* <label htmlFor="usertype">User Type:</label> */}
-              <select id="usertype" name="usertype" required>
-                <option value="admin">Admin</option>
-                <option value="student">Student</option>
-                <option value="lecturer">Lecturer</option>
-              </select>
-            </div>
-            <br />
-            <div className="form-group">
-              <button type="submit">LOGIN</button>
-            </div>
-            <br />
-            <br />
-            <label>
-              New User?&nbsp;&nbsp;&nbsp;{" "}
-              <span>
-                <button onClick={toggleFormDisplay}>SIGN UP</button>
-              </span>
-            </label>
-          </form>
+                <br />
 
-          {/* if not registered register */}
-
-          {/* REGISTRATION FOR Users { name,type,email, password,dob,studentrollno} */}
-          <form id="registerForm" onSubmit={onsubmitform2}>
-            <h2>SIGN UP</h2>
-            <div className="form-group">
-              {/* <label htmlFor="name">Name:</label> */}
-              <input
-                type="text"
-                id="name2"
-                name="name"
-                required
-                placeholder="Name"
-              />
+                {/* <label htmlFor="usertype">User Type:</label> */}
+                <select id="usertype" name="usertype" required>
+                  <option value="admin">Admin</option>
+                  <option value="student">Student</option>
+                  <option value="lecturer">Lecturer</option>
+                </select>
+              </div>
               <br />
+              <div className="form-group">
+                <button type="submit">LOGIN</button>
+              </div>
+              <br />
+              <br />
+              <label>
+                New User?&nbsp;&nbsp;&nbsp;{" "}
+                <span>
+                  <button onClick={toggleFormDisplay}>SIGN UP</button>
+                </span>
+              </label>
+            </form>
 
-              {/* <label htmlFor="email">Email:</label> */}
-              <input
-                type="email"
-                id="email2"
-                name="email"
-                required
-                placeholder="Email id"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                title="Enter a valid email id"
-              />
-              <br />
-              {/* <label htmlFor="password">Password:</label> */}
-              <input
-                type="password"
-                id="password2"
-                name="password"
-                required
-                placeholder="Password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-              />
-              <br />
-              {/* <label htmlFor="dob">Date of Birth:</label> */}
-              {/* <input
+            {/* if not registered register */}
+
+            {/* REGISTRATION FOR Users { name,type,email, password,dob,studentrollno} */}
+            <form id="registerForm" onSubmit={onsubmitform2}>
+              <h2>SIGN UP</h2>
+              <div className="form-group">
+                {/* <label htmlFor="name">Name:</label> */}
+                <input
+                  type="text"
+                  id="name2"
+                  name="name"
+                  required
+                  placeholder="Name"
+                />
+                <br />
+
+                {/* <label htmlFor="email">Email:</label> */}
+                <input
+                  type="email"
+                  id="email2"
+                  name="email"
+                  required
+                  placeholder="Email id"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  title="Enter a valid email id"
+                />
+                <br />
+                {/* <label htmlFor="password">Password:</label> */}
+                <input
+                  type="password"
+                  id="password2"
+                  name="password"
+                  required
+                  placeholder="Password"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                />
+                <br />
+                {/* <label htmlFor="dob">Date of Birth:</label> */}
+                {/* <input
                 onfocus="(this.type='date')"
                 type="text"
                 id="dob2"
@@ -258,46 +275,51 @@ function LoginPage() {
                 required
                 placeholder="Date of Birth"
               /> */}
-              <br />
+                <br />
 
-              <label htmlFor="dob">Date of Birth:</label>
+                <input
+                  type="text"
+                  id="dob2"
+                  name="dob"
+                  placeholder="Date of Birth"
+                  required
+                />
+                <br />
 
-              <input type="date" id="dob2" name="dob" required />
-              <br />
-
-              {/* <label htmlFor="studentrollno">Student Roll No:</label> */}
-              <input
-                type="text"
-                id="studentrollno2"
-                name="studentrollno"
-                // required
-                placeholder="Student Roll Number"
-              />
-
-              <label htmlFor="type">User Type:</label>
-              <select
-                id="type2"
-                name="type"
-                required
-                onChange={(e) => {
-                  setFormUserType(e.target.value);
-                }}
-              >
-                <option value="student">Student</option>
-                <option value="admin">Admin</option>
-                <option value="lecturer">Lecturer</option>
-              </select>
-              <br />
-              <br />
-              <br />
-              <button type="submit">SIGN UP</button>
-              <br />
-              <label>Already registered?</label>
-              <button onClick={toggleFormDisplay}>LOGIN</button>
-            </div>
-          </form>
+                {/* <label htmlFor="studentrollno">Student Roll No:</label> */}
+                <input
+                  type="text"
+                  id="studentrollno2"
+                  name="studentrollno"
+                  // required
+                  placeholder="Student Roll Number"
+                />
+                <br />
+                <select
+                  id="type2"
+                  name="type"
+                  required
+                  onChange={(e) => {
+                    setFormUserType(e.target.value);
+                  }}
+                >
+                  <option>User Type</option>
+                  <option value="student">Student</option>
+                  <option value="admin">Admin</option>
+                  <option value="lecturer">Lecturer</option>
+                </select>
+                <br />
+                <br />
+                <br />
+                <button type="submit">SIGN UP</button>
+                <br />
+                <label>Already registered?</label>
+                <button onClick={toggleFormDisplay}>LOGIN</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      </>
     </>
   );
 }

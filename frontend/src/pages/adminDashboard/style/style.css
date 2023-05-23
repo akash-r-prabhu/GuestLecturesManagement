@@ -1,4 +1,18 @@
+/* Style for body added on 24 may 2023 --akash r prabhu*/
 
+body {
+    background-color: #34374C;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+  }
+  
+  .cardContentText{
+    color: #2C2E3E!;
+  }
+  
+  
   /* Styling for the main content */
   .content {
     display: flex;
@@ -17,7 +31,7 @@
   }
   
   .card {
-    background-color: #fff;
+    background-color: #F6F6F6;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 400px;
     height: 250px;
@@ -29,18 +43,18 @@
     transition: border-color 0.3s;
     cursor: pointer;
   }
-  
+
   .card:hover {
-    border-color: #000;
+    color: #EE2B47;
   }
+  
   
   .card-content {
     padding: 20px;
   }
   
   .card h2 {
-    margin-top: 0;
-    color: black;
+    margin-top: 3px;
   }
   
   .card p {
@@ -49,7 +63,6 @@
   
   .room {
     text-decoration: none;
-    color: black;
   }
 
 

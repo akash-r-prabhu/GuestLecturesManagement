@@ -3,8 +3,8 @@ import { useStateValue } from "../../context/StateProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
-import { use } from "express/lib/router";
-
+import LectureImage from "../../images/IMG_0347.jpg";
+import "./style/style.css";
 function LectureBox(props) {
   const [{ user }, dispatch] = useStateValue();
 
@@ -65,15 +65,16 @@ function LectureBox(props) {
 
   return (
     <div className="lecture-box">
-      <img
-        src="https://sustainability.tufts.edu/wp-content/uploads/IMG_0347.jpg"
-        alt={props.title}
-      />
+      <img src={LectureImage} alt={props.title} />
       <p>Title {props.title}</p>
       <p>Date {props.date}</p>
       <p>Time {props.time}</p>
       <p>Lecturer {props.lecturer}</p>
-      <p>Status {props.status}</p>
+      {props.status == "pending" ? (
+        <p>Status Pending</p>
+      ) : (
+        <p>Status Accepted</p>
+      )}
       {/* <a href="#" className="register-button">
         Register
       </a> */}
@@ -87,7 +88,6 @@ function LectureBox(props) {
       ) : (
         <></>
       )}
-
       {user.type == "student" ? (
         <button
           className="register-button"

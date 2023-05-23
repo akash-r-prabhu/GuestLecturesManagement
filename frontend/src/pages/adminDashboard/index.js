@@ -4,6 +4,7 @@ import { useStateValue } from "../../context/StateProvider";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "./style/style.css";
+import "./style/viewGuestLectures.css";
 
 function AdminDashboard() {
   const [{ user }, dispatch] = useStateValue();
@@ -65,15 +66,19 @@ function AdminDashboard() {
             <Link to="/2" className="card">
               <div className="card-content">
                 <i className="fas fa-eye fa-7x" />
-                <h2>View Request</h2>
-                <p>Manage lectures and course materials.</p>
+                <div className="cardContentText">
+                  <h2>View Request</h2>
+                  <p>Manage lectures and course materials.</p>
+                </div>
               </div>
             </Link>
             <Link to="/viewLectures" className="card">
               <div className="card-content">
                 <i className="fas fa-calendar-alt fa-7x" />
-                <h2>Lecture Schedule</h2>
-                <p>Manage lectures and course materials.</p>
+                <div className="cardContentText">
+                  <h2>Lecture Schedule</h2>
+                  <p>Manage lectures and course materials.</p>
+                </div>
               </div>
             </Link>
             <div className="card">
@@ -113,12 +118,6 @@ function AdminDashboard() {
 
         <>
           <title>View Guest Lecture Requests</title>
-          <style
-            dangerouslySetInnerHTML={{
-              __html:
-                "\n    body {\n      font-family: Arial, sans-serif;\n      margin: 20px;\n    }\n\n    h1, h2 {\n      color: #333;\n    }\n\n    .requests-container {\n      display: flex;\n      flex-wrap: wrap;\n    }\n\n    .request-box {\n      flex: 0 0 calc(33.33% - 20px);\n      margin: 10px;\n      padding: 20px;\n      border: 1px solid #ccc;\n      background-color: #f9f9f9;\n    }\n\n    p {\n      margin: 5px 0;\n    }\n\n    /* Styling for buttons */\n    .action-button {\n      background-color: #4CAF50;\n      color: #fff;\n      border: none;\n      padding: 10px 20px;\n      text-align: center;\n      text-decoration: none;\n      display: inline-block;\n      font-size: 14px;\n      margin-top: 10px;\n      cursor: pointer;\n    }\n\n    .action-button:hover {\n      background-color: #45a049;\n    }\n  ",
-            }}
-          />
           <div className="requests-container">
             {/* Guest Lecture Request 1 */}
 
