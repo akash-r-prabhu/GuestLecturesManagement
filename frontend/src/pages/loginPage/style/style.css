@@ -178,7 +178,7 @@ h2{
     padding: 10px 25px;
     background-color: #db0859;
     border: none;
-    border-radius: 20px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     align-content: center;
@@ -188,7 +188,6 @@ h2{
   
   button:hover {
     background-color: #45a049;
-    
   }
 
   .container.blue button {

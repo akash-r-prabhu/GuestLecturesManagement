@@ -17,6 +17,7 @@ function LoginPage() {
   useEffect(() => {
     if (formUserType == "student") {
       document.getElementById("studentrollno2").style.display = "block";
+      document.getElementById("studentrollno2").required = true;
     } else {
       document.getElementById("studentrollno2").style.display = "none";
       document.getElementById("studentrollno2").required = false;
@@ -186,9 +187,9 @@ function LoginPage() {
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
               />
-            
-            <br />
-            
+
+              <br />
+
               {/* <label htmlFor="usertype">User Type:</label> */}
               <select id="usertype" name="usertype" required>
                 <option value="admin">Admin</option>
@@ -202,8 +203,12 @@ function LoginPage() {
             </div>
             <br />
             <br />
-            <label>New User?&nbsp;&nbsp;&nbsp; <span ><button onClick={toggleFormDisplay}>SIGN UP</button></span></label>
-            
+            <label>
+              New User?&nbsp;&nbsp;&nbsp;{" "}
+              <span>
+                <button onClick={toggleFormDisplay}>SIGN UP</button>
+              </span>
+            </label>
           </form>
 
           {/* if not registered register */}
@@ -257,7 +262,8 @@ function LoginPage() {
 
               <label htmlFor="dob">Date of Birth:</label>
 
-              <input type="date" id="dob2" name="dob" required /><br/>
+              <input type="date" id="dob2" name="dob" required />
+              <br />
 
               {/* <label htmlFor="studentrollno">Student Roll No:</label> */}
               <input
@@ -269,7 +275,14 @@ function LoginPage() {
               />
 
               <label htmlFor="type">User Type:</label>
-              <select id="type2" name="type" required>
+              <select
+                id="type2"
+                name="type"
+                required
+                onChange={(e) => {
+                  setFormUserType(e.target.value);
+                }}
+              >
                 <option value="student">Student</option>
                 <option value="admin">Admin</option>
                 <option value="lecturer">Lecturer</option>
