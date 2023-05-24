@@ -18,7 +18,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 7em;
   }
   
   /* Styling for the cards */
@@ -27,7 +26,8 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 9em;
+
   }
   
   .card {
