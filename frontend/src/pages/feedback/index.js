@@ -202,7 +202,7 @@ function FeedbackPage() {
                   }
                 />
                 Extremely Good!
-<<<<<<< Updated upstream
+
                 <br />
                 <input
                   type="radio"
@@ -212,10 +212,6 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, organization: e.target.value })
                   }
                 />
-=======
-                
-                <input type="radio" name="organization" defaultValue="like" />
->>>>>>> Stashed changes
                 Good
                 <br />
                 <input
