@@ -58,18 +58,18 @@ function Navbar() {
             HOME
           </Link>
           <Link to="/viewLectures" className="navLink">
-            ViewLectures
+            LECTURES
           </Link>
 
           <Link to="/feedback" className="navLink">
-            Feedback
+            FEEDBACK
           </Link>
           <Link to="" className="navLink">
-            Contact
+            CONTACT
           </Link>
 
           <div className="navLink" onClick={logout}>
-            Logout
+            LOG OUT
           </div>
           {/* <div className="navLink">{user.name}</div> */}
         </div>
