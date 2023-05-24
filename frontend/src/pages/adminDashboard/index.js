@@ -67,8 +67,8 @@ function AdminDashboard() {
               <div className="card-content">
                 <i className="fas fa-eye fa-7x" />
                 <div className="cardContentText">
+                  <br />
                   <h2>View Request</h2>
-                  <p>Manage lectures and course materials.</p>
                 </div>
               </div>
             </Link>
@@ -76,24 +76,27 @@ function AdminDashboard() {
               <div className="card-content">
                 <i className="fas fa-calendar-alt fa-7x" />
                 <div className="cardContentText">
+                  <br />
                   <h2>Lecture Schedule</h2>
-                  <p>Manage lectures and course materials.</p>
                 </div>
               </div>
             </Link>
             <div className="card">
               <div className="card-content">
                 <i className="fas fa-comment fa-7x" />
+                <br />
+                <br />
+
                 <h2>View Feedback</h2>
-                <p>Manage lectures and course materials.</p>
               </div>
             </div>
             <Link to="/1" className="room">
               <div className="card">
                 <div className="card-content">
                   <i className="fas fa-building fa-7x" />
+                  <br />
+                  <br />
                   <h2>Hall Management</h2>
-                  <p>Manage halls and scheduling of events.</p>
                 </div>
               </div>
             </Link>

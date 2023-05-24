@@ -6,6 +6,18 @@ import Swal from "sweetalert2";
 
 function Navbar() {
   const [{ user }, dispatch] = useStateValue();
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function () {
+    var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos < currentScrollPos) {
+      document.getElementsByClassName("navbar")[0].style.top = "-50px";
+    } else {
+      document.getElementsByClassName("navbar")[0].style.top = "0";
+    }
+
+    prevScrollpos = currentScrollPos;
+  };
+
   var logout = () => {
     Swal.fire({
       iconColor: "red",
@@ -49,7 +61,7 @@ function Navbar() {
             ViewLectures
           </Link>
 
-          <Link to="" className="navLink">
+          <Link to="/feedback" className="navLink">
             Feedback
           </Link>
           <Link to="" className="navLink">

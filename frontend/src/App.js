@@ -4,7 +4,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 import "./App.css";
 // import Login from "./components/Login";
 import { useStateValue } from "./context/StateProvider";
-import { Homepage, ViewLectures, LoginPage } from "./pages";
+import { Homepage, ViewLectures, LoginPage, FeedbackPage } from "./pages";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
@@ -29,6 +29,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/:id" element={<Homepage />} />
         <Route path="/viewLectures" element={<ViewLectures />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
       </Routes>
     </BrowserRouter>
   );

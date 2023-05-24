@@ -2,7 +2,10 @@
 	display: flex;
 	padding: 5px;
 	background-color: #EE2B47;
+	position: fixed;
+	width: 100%;
 }
+
 .navInner{
 	display: flex;
 	flex-direction: row;
