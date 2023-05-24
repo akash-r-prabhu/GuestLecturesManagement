@@ -275,7 +275,6 @@ function LoginPage() {
                 required
                 placeholder="Date of Birth"
               /> */}
-                <br />
 
                 <input
                   type="text"
@@ -287,14 +286,7 @@ function LoginPage() {
                 <br />
 
                 {/* <label htmlFor="studentrollno">Student Roll No:</label> */}
-                <input
-                  type="text"
-                  id="studentrollno2"
-                  name="studentrollno"
-                  // required
-                  placeholder="Student Roll Number"
-                />
-                <br />
+                
                 <select
                   id="type2"
                   name="type"
@@ -309,6 +301,13 @@ function LoginPage() {
                   <option value="lecturer">Lecturer</option>
                 </select>
                 <br />
+                <input
+                  type="text"
+                  id="studentrollno2"
+                  name="studentrollno"
+                  // required
+                  placeholder="Student Roll Number"
+                />
                 <br />
                 <br />
                 <button type="submit">SIGN UP</button>

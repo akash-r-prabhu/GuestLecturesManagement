@@ -231,3 +231,11 @@ float: right;
 margin-right: 10px;
 margin-top: 10px;
 }
+
+.addLectureButton:hover{
+  /* align to right end */
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: black;
+  }

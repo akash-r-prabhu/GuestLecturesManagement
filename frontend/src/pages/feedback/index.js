@@ -103,7 +103,7 @@ function FeedbackPage() {
           <header>
             <div className="text-box">
               <h1 id="title">
-                Tell us about your experience with our Faculties
+                Tell us about your experience on the Guest Lecture
               </h1>
               <hr />
 
@@ -118,26 +118,27 @@ function FeedbackPage() {
             >
               <div className="labels">
                 <label id="name-label" htmlFor="name">
-                  * Full Name
+                  Full Name
                 </label>
-              </div>
-              <div className="input-tab">
-                <input
-                  className="input-field"
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your name"
-                  required
-                  autofocus=""
-                  value={user.name}
-                />
+              
+                <div className="input-tab">
+                  <input
+                    className="input-field"
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                    autofocus=""
+                    value={user.name}
+                  />
+                </div>
               </div>
               <div className="labels">
                 <label id="email-label" htmlFor="email">
-                  * Email
+                  Email
                 </label>
-              </div>
+              
               <div className="input-tab">
                 <input
                   className="input-field"
@@ -148,12 +149,12 @@ function FeedbackPage() {
                   required
                   value={user.email}
                 />
-              </div>
+              </div></div>
               <div className="labels">
                 <label id="name-label" htmlFor="name" required>
-                  * Guest Lecturer Name
+                  Guest Lecturer Name
                 </label>
-              </div>
+              
               <div className="input-tab">
                 {/* <input
                   className="input-field"
@@ -178,13 +179,13 @@ function FeedbackPage() {
                   }
                 >
                   <option value="" disabled selected>
-                    Select your option
+                    Guest Lecturer Name
                   </option>
                   {guestLecturersList.map((item) => (
                     <option value={item.name}>{item.name}</option>
                   ))}
                 </select>
-              </div>
+              </div></div>
               <br />
               <br />
               <div className="labels">
@@ -201,6 +202,7 @@ function FeedbackPage() {
                   }
                 />
                 Extremely Good!
+<<<<<<< Updated upstream
                 <br />
                 <input
                   type="radio"
@@ -210,6 +212,10 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, organization: e.target.value })
                   }
                 />
+=======
+                
+                <input type="radio" name="organization" defaultValue="like" />
+>>>>>>> Stashed changes
                 Good
                 <br />
                 <input
@@ -392,7 +398,7 @@ function FeedbackPage() {
               <div className="input-tab">
                 <textarea
                   required
-                  name="suggessions"
+                  name="suggestions"
                   id=""
                   cols={30}
                   rows={10}
@@ -405,7 +411,7 @@ function FeedbackPage() {
               <br />
               <div>
                 <div className="feedback">
-                  <h1>Rating</h1>
+                  <h1>RATING</h1>
                   <div className="rating">
                     <input
                       type="radio"
@@ -757,7 +763,7 @@ function FeedbackPage() {
               </div>
               <div className="btn">
                 <button id="submit" type="submit">
-                  Submit
+                  SUBMIT
                 </button>
               </div>
             </form>

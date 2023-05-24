@@ -133,7 +133,7 @@ function ViewLectures() {
           className="addLectureButton"
           onClick={() => addLecture()}
         >
-          Add Lecture
+          ADD LECTURE
         </button>
 
         <div className="c">
