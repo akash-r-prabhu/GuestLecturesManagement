@@ -4,6 +4,7 @@
 	background-color: #EE2B47;
 	position: fixed;
 	width: 100%;
+	top: 0;
 }
 
 .navInner{
@@ -23,9 +24,10 @@
 	font-weight: bold;
 }
 .navLink:hover{
-	color:#F6F6F6;
+	color:#000000;
 	text-decoration: none;
 	cursor: pointer;
-	background-color: #2C2E3E;
+	/* background-color: #2C2E3E; */
+	
 	
 }
