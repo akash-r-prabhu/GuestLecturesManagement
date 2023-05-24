@@ -403,6 +403,65 @@ app.get("/registerForLecture", async function (req, res) {
     });
 });
 
+app.get("/setFeedback", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  // var data = {
+  //   name: feedback.name,
+  //   email: feedback.email,
+  //   lecturer: feedback.lecturer,
+  //   suggestion: feedback.suggestion,
+  //   organization: organization,
+  //   content: content,
+  //   satisfied: satisfied,
+  //   preperation: preperation,
+  //   expecting: expecting,
+  //   rating: rating,
+  // };
+  const docRef = await db
+    .collection("feedback")
+    .add(queryObject)
+    .then((docRef) => {
+      res.send("success");
+    })
+    .catch((error) => {
+      res.send("error");
+    });
+});
+
+app.get("/getFeedbackForLecturer", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const lecturer = queryObject.lecturer;
+  const feedbacks = [];
+
+  const unsubscribe = db
+    .collection("feedback")
+    .where("lecturer", "==", lecturer)
+    .onSnapshot((snapshot) => {
+      feedbacks.length = 0; // Clear the array before updating
+
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        feedbacks.push({
+          id: doc.id,
+          name: data.name,
+          email: data.email,
+          lecturer: data.lecturer,
+          suggestion: data.suggestion,
+          organization: data.organization,
+          content: data.content,
+          satisfied: data.satisfied,
+          preperation: data.preperation,
+          expecting: data.expecting,
+          rating: data.rating,
+        });
+      });
+
+      // Send the updated lecturer list
+      res.send(feedbacks);
+      unsubscribe();
+    });
+});
+
 // sample url http://localhost:8001/registerForLecture?docId=1&name=Kamal
 app.listen(8001, function () {
   console.log("CORS-enabled web server listening on port 8001");

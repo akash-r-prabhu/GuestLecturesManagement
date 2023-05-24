@@ -3,7 +3,7 @@ import { Navbar } from "../../components";
 import "./style/mainbody.css";
 import "./style/sidebar.css";
 import "./style/activities.css";
-import { AdminDashboard, StudentDashboard } from "../index";
+import { AdminDashboard, StudentDashboard, LecturerDashboard } from "../index";
 import { useStateValue } from "../../context/StateProvider";
 
 function Homepage() {
@@ -21,16 +21,7 @@ function Homepage() {
     case "student":
       return <StudentDashboard />;
     case "lecturer":
-      return (
-        <>
-          <Navbar />
-          <br />
-          <br />
-          <br />
-
-          <h1>Lecturer Homepage</h1>
-        </>
-      );
+      return <LecturerDashboard />;
     default:
       // return error with invalid user type
       return <h1>Invalid user type</h1>;

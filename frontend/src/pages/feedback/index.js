@@ -2,18 +2,112 @@ import "./style/style.css";
 import "./style/fb.css";
 import "./style/fstyle.css";
 import { useStateValue } from "../../context/StateProvider";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 import { Navbar } from "../../components";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 function FeedbackPage() {
   const [{ user }, dispatch] = useStateValue();
+  const [guestLecturersList, setGuestLecturersList] = React.useState([]);
+  const [feedbackForLecturer, setFeedbackForLecturer] = React.useState([]);
+
+  React.useEffect(() => {
+    if (user.type == "lecturer") {
+      axios
+        .get("http://localhost:8001/getFeedbackForLecturer", {
+          params: { lecturer: user.name },
+        })
+        .then((res) => {
+          setFeedbackForLecturer(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
+  const [feedback, setFeedback] = React.useState({
+    name: user.name,
+    email: user.email,
+    lecturer: "",
+    organization: "",
+    content: "",
+    satisfied: "",
+    suggestion: "",
+  });
+  useEffect(() => {
+    console.log(feedback);
+  }, [feedback]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8001/lecturerList")
+      .then((res) => {
+        setGuestLecturersList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // clear the form
+    e.target.reset();
+
+    var organization = e.target.elements.organization.value;
+    var content = e.target.elements.content.value;
+    var satisfied = e.target.elements.satisfied.value;
+    var preperation = e.target.elements.preperation.value;
+    var expecting = e.target.elements.expecting.value;
+    var rating = e.target.elements.rating.value;
+    // suggession is a text area
+
+    var data = {
+      name: feedback.name,
+      email: feedback.email,
+      lecturer: feedback.lecturer,
+      suggestion: feedback.suggestion,
+      organization: organization,
+      content: content,
+      satisfied: satisfied,
+      preperation: preperation,
+      expecting: expecting,
+      rating: rating,
+    };
+    axios
+      .get("http://localhost:8001/setFeedback", { params: data })
+      .then((res) => {
+        console.log(res);
+        if (res.data === "success") {
+          Swal.fire({
+            icon: "success",
+            title: "Feedback Submitted Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        }
+      });
+
+    console.log(data);
+  };
 
   if (user.type === "student") {
     return (
       <>
         <Navbar />
+        <br />
+        <br />
+
         <>
           <header>
             <div className="text-box">
@@ -26,7 +120,11 @@ function FeedbackPage() {
             </div>
           </header>
           <div className="form">
-            <form id="survey-form" method="GET">
+            <form
+              id="survey-form"
+              method="GET"
+              onSubmit={(e) => handleSubmit(e)}
+            >
               <div className="labels">
                 <label id="name-label" htmlFor="name">
                   * Full Name
@@ -39,8 +137,9 @@ function FeedbackPage() {
                   id="name"
                   name="name"
                   placeholder="Enter your name"
-                  required=""
+                  required
                   autofocus=""
+                  value={user.name}
                 />
               </div>
               <div className="labels">
@@ -55,24 +154,45 @@ function FeedbackPage() {
                   id="email"
                   name="email"
                   placeholder="email@email.com"
-                  required=""
+                  required
+                  value={user.email}
                 />
               </div>
               <div className="labels">
-                <label id="name-label" htmlFor="name">
+                <label id="name-label" htmlFor="name" required>
                   * Guest Lecturer Name
                 </label>
               </div>
               <div className="input-tab">
-                <input
+                {/* <input
                   className="input-field"
                   type="text"
                   id="name"
                   name="name"
                   placeholder="Enter name"
-                  required=""
+                  required
                   autofocus=""
-                />
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, lecturer: e.target.value })
+                  }
+                /> */}
+                <select
+                  className="input-field"
+                  id="dropdown"
+                  name="lecturer"
+                  required
+                  defaultValue={user.email}
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, lecturer: e.target.value })
+                  }
+                >
+                  <option value="" disabled selected>
+                    Select your option
+                  </option>
+                  {guestLecturersList.map((item) => (
+                    <option value={item.name}>{item.name}</option>
+                  ))}
+                </select>
               </div>
               <br />
               <br />
@@ -80,7 +200,12 @@ function FeedbackPage() {
                 <label>How was the overall organization of the Lecture?</label>
               </div>
               <div className="input-tab">
-                <input type="radio" name="organization" defaultValue="love" />
+                <input
+                  type="radio"
+                  name="organization"
+                  defaultValue="love"
+                  required
+                />
                 Extremely Good!
                 <br />
                 <input type="radio" name="organization" defaultValue="like" />
@@ -98,7 +223,12 @@ function FeedbackPage() {
               </div>
               <div className="input-tab">
                 <br />
-                <input type="radio" name="content" defaultValue="love" />
+                <input
+                  type="radio"
+                  name="content"
+                  defaultValue="love"
+                  required
+                />
                 Extremely Good!
                 <br />
                 <input type="radio" name="content" defaultValue="like" />
@@ -110,13 +240,17 @@ function FeedbackPage() {
               </div>
               <br />
               <div className="labels">
-                <label htmlFor="dropdown">
-                  Are you satisfied with the time and venue?
-                </label>
+                <label>How satisfied were you with the guest lecture?</label>
               </div>
+
               <div className="input-tab">
                 <br />
-                <input type="radio" name="satisfied" defaultValue="love" />
+                <input
+                  type="radio"
+                  name="satisfied"
+                  defaultValue="love"
+                  required
+                />
                 Extremely Good!
                 <br />
                 <input type="radio" name="satisfied" defaultValue="like" />
@@ -135,7 +269,12 @@ function FeedbackPage() {
                 </label>
               </div>
               <div className="input-tab">
-                <input type="radio" name="preperation" defaultValue="love" />
+                <input
+                  type="radio"
+                  name="preperation"
+                  defaultValue="love"
+                  required
+                />
                 Extremely Good!
                 <br />
                 <input type="radio" name="preperation" defaultValue="like" />
@@ -148,33 +287,46 @@ function FeedbackPage() {
               <br />
               <br />
               <div className="labels">
-                <label htmlFor="dropdown">
+                <label htmlFor="expecting">
                   Did the lecturer cover what you were expecting?
                 </label>
               </div>
               <div className="input-tab">
-                <input type="radio" name="dropdown" defaultValue="love" />
+                <input
+                  type="radio"
+                  name="expecting"
+                  defaultValue="love"
+                  required
+                />
                 Extremely Good!
                 <br />
-                <input type="radio" name="dropdown" defaultValue="like" />
+                <input
+                  type="radio"
+                  name="expecting"
+                  defaultValue="like"
+                  required
+                />
                 Good
                 <br />
-                <input type="radio" name="dropdown" defaultValue="ok" />
+                <input type="radio" name="expecting" defaultValue="ok" />
                 Satisfactory
                 <br />
               </div>
               <br />
               <br />
               <div className="labels">
-                <label htmlFor="dropdown">Any Suggestions?</label>
+                <label htmlFor="suggessions">Any Suggestions?</label>
               </div>
               <div className="input-tab">
                 <textarea
-                  name="text"
+                  required
+                  name="suggessions"
                   id=""
                   cols={30}
                   rows={10}
-                  defaultValue={""}
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, suggestion: e.target.value })
+                  }
                 />
               </div>
               <br />
@@ -183,15 +335,27 @@ function FeedbackPage() {
                 <div className="feedback">
                   <h1>Rating</h1>
                   <div className="rating">
-                    <input type="radio" name="rating" id="rating-5" />
+                    <input
+                      type="radio"
+                      name="rating"
+                      id="rating-5"
+                      value="5"
+                      required
+                    />
                     <label htmlFor="rating-5" />
-                    <input type="radio" name="rating" id="rating-4" />
+                    <input type="radio" name="rating" id="rating-4" value="4" />
                     <label htmlFor="rating-4" />
-                    <input type="radio" name="rating" id="rating-3" />
+                    <input type="radio" name="rating" id="rating-3" value="3" />
                     <label htmlFor="rating-3" />
-                    <input type="radio" name="rating" id="rating-2" />
+                    <input type="radio" name="rating" id="rating-2" value="2" />
                     <label htmlFor="rating-2" />
-                    <input type="radio" name="rating" id="rating-1" />
+                    <input
+                      type="radio"
+                      name="rating"
+                      id="rating-1"
+                      value="1"
+                      defaultChecked
+                    />
                     <label htmlFor="rating-1" />
                     <div className="emoji-wrapper">
                       <div className="emoji">
@@ -505,7 +669,13 @@ function FeedbackPage() {
     return (
       <>
         <Navbar />
-        <h1>Feedback List to be done </h1>
+        <br />
+        <br />
+        <br />
+
+        {feedbackForLecturer.map((feedback) => {
+          <h1 id="title">Tell us about your experience with our Faculties</h1>;
+        })}
       </>
     );
   }
