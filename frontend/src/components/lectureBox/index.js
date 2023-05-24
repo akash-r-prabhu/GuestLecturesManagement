@@ -88,7 +88,7 @@ function LectureBox(props) {
       ) : (
         <></>
       )}
-      {user.type == "student" ? (
+      {user.type == "student" && !props.alreadyRegistered ? (
         <button
           className="register-button"
           onClick={() => registerForLecture(props.id)}

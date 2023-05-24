@@ -34,10 +34,13 @@ function FeedbackPage() {
     name: user.name,
     email: user.email,
     lecturer: "",
+    suggestion: "",
     organization: "",
     content: "",
     satisfied: "",
-    suggestion: "",
+    preperation: "",
+    expecting: "",
+    rating: "",
   });
   useEffect(() => {
     console.log(feedback);
@@ -58,12 +61,6 @@ function FeedbackPage() {
     // clear the form
     e.target.reset();
 
-    var organization = e.target.elements.organization.value;
-    var content = e.target.elements.content.value;
-    var satisfied = e.target.elements.satisfied.value;
-    var preperation = e.target.elements.preperation.value;
-    var expecting = e.target.elements.expecting.value;
-    var rating = e.target.elements.rating.value;
     // suggession is a text area
 
     var data = {
@@ -71,34 +68,28 @@ function FeedbackPage() {
       email: feedback.email,
       lecturer: feedback.lecturer,
       suggestion: feedback.suggestion,
-      organization: organization,
-      content: content,
-      satisfied: satisfied,
-      preperation: preperation,
-      expecting: expecting,
-      rating: rating,
+      organization: feedback.organization,
+      content: feedback.content,
+      satisfied: feedback.satisfied,
+      preperation: feedback.preperation,
+      expecting: feedback.expecting,
+      rating: feedback.rating,
     };
     axios
-      .get("http://localhost:8001/setFeedback", { params: data })
+      .post("http://localhost:8001/setFeedback", data)
       .then((res) => {
-        console.log(res);
-        if (res.data === "success") {
-          Swal.fire({
-            icon: "success",
-            title: "Feedback Submitted Successfully",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-          });
-        }
-      });
+        console.log(res.data);
+        Swal.fire({
+          icon: "success",
+          title: "Feedback Submitted Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
 
-    console.log(data);
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   if (user.type === "student") {
@@ -203,15 +194,32 @@ function FeedbackPage() {
                 <input
                   type="radio"
                   name="organization"
-                  defaultValue="love"
                   required
+                  value="Extremely Good!"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, organization: e.target.value })
+                  }
                 />
                 Extremely Good!
                 <br />
-                <input type="radio" name="organization" defaultValue="like" />
+                <input
+                  type="radio"
+                  name="organization"
+                  value="Good"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, organization: e.target.value })
+                  }
+                />
                 Good
                 <br />
-                <input type="radio" name="organization" defaultValue="ok" />
+                <input
+                  type="radio"
+                  name="organization"
+                  value="Satisfactory"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, organization: e.target.value })
+                  }
+                />
                 Satisfactory
                 <br />
               </div>
@@ -226,15 +234,32 @@ function FeedbackPage() {
                 <input
                   type="radio"
                   name="content"
-                  defaultValue="love"
                   required
+                  value="Extremely Good!"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, content: e.target.value })
+                  }
                 />
                 Extremely Good!
                 <br />
-                <input type="radio" name="content" defaultValue="like" />
+                <input
+                  type="radio"
+                  name="content"
+                  value="Good"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, content: e.target.value })
+                  }
+                />
                 Good
                 <br />
-                <input type="radio" name="content" defaultValue="ok" />
+                <input
+                  type="radio"
+                  name="content"
+                  value="Satisfactory"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, content: e.target.value })
+                  }
+                />
                 Satisfactory
                 <br />
               </div>
@@ -248,15 +273,32 @@ function FeedbackPage() {
                 <input
                   type="radio"
                   name="satisfied"
-                  defaultValue="love"
                   required
+                  value="Extremely Good!"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, satisfied: e.target.value })
+                  }
                 />
                 Extremely Good!
                 <br />
-                <input type="radio" name="satisfied" defaultValue="like" />
+                <input
+                  type="radio"
+                  name="satisfied"
+                  value="Good"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, satisfied: e.target.value })
+                  }
+                />
                 Good
                 <br />
-                <input type="radio" name="satisfied" defaultValue="ok" />
+                <input
+                  type="radio"
+                  name="satisfied"
+                  value="Satisfactory"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, satisfied: e.target.value })
+                  }
+                />
                 Satisfactory
                 <br />
               </div>
@@ -272,15 +314,32 @@ function FeedbackPage() {
                 <input
                   type="radio"
                   name="preperation"
-                  defaultValue="love"
                   required
+                  value="Extremely Good!"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, preperation: e.target.value })
+                  }
                 />
                 Extremely Good!
                 <br />
-                <input type="radio" name="preperation" defaultValue="like" />
+                <input
+                  type="radio"
+                  name="preperation"
+                  value="Good"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, preperation: e.target.value })
+                  }
+                />
                 Good
                 <br />
-                <input type="radio" name="preperation" defaultValue="ok" />
+                <input
+                  type="radio"
+                  name="preperation"
+                  value="Satisfactory"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, preperation: e.target.value })
+                  }
+                />
                 Satisfactory
                 <br />
               </div>
@@ -295,8 +354,11 @@ function FeedbackPage() {
                 <input
                   type="radio"
                   name="expecting"
-                  defaultValue="love"
                   required
+                  value="Extremely Good!"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, expecting: e.target.value })
+                  }
                 />
                 Extremely Good!
                 <br />
@@ -304,11 +366,21 @@ function FeedbackPage() {
                   type="radio"
                   name="expecting"
                   defaultValue="like"
-                  required
+                  value="Good"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, expecting: e.target.value })
+                  }
                 />
                 Good
                 <br />
-                <input type="radio" name="expecting" defaultValue="ok" />
+                <input
+                  type="radio"
+                  name="expecting"
+                  value="Satisfactory"
+                  onChange={(e) =>
+                    setFeedback({ ...feedback, expecting: e.target.value })
+                  }
+                />
                 Satisfactory
                 <br />
               </div>
@@ -341,20 +413,50 @@ function FeedbackPage() {
                       id="rating-5"
                       value="5"
                       required
+                      onChange={(e) =>
+                        setFeedback({ ...feedback, rating: e.target.value })
+                      }
                     />
                     <label htmlFor="rating-5" />
-                    <input type="radio" name="rating" id="rating-4" value="4" />
+                    <input
+                      type="radio"
+                      name="rating"
+                      id="rating-4"
+                      value="4"
+                      onChange={(e) =>
+                        setFeedback({ ...feedback, rating: e.target.value })
+                      }
+                    />
+
                     <label htmlFor="rating-4" />
-                    <input type="radio" name="rating" id="rating-3" value="3" />
+                    <input
+                      type="radio"
+                      name="rating"
+                      id="rating-3"
+                      value="3"
+                      onChange={(e) =>
+                        setFeedback({ ...feedback, rating: e.target.value })
+                      }
+                    />
                     <label htmlFor="rating-3" />
-                    <input type="radio" name="rating" id="rating-2" value="2" />
+                    <input
+                      type="radio"
+                      name="rating"
+                      id="rating-2"
+                      value="2"
+                      onChange={(e) =>
+                        setFeedback({ ...feedback, rating: e.target.value })
+                      }
+                    />
                     <label htmlFor="rating-2" />
                     <input
                       type="radio"
                       name="rating"
                       id="rating-1"
                       value="1"
-                      defaultChecked
+                      onChange={(e) =>
+                        setFeedback({ ...feedback, rating: e.target.value })
+                      }
                     />
                     <label htmlFor="rating-1" />
                     <div className="emoji-wrapper">
@@ -672,10 +774,32 @@ function FeedbackPage() {
         <br />
         <br />
         <br />
-
-        {feedbackForLecturer.map((feedback) => {
-          <h1 id="title">Tell us about your experience with our Faculties</h1>;
-        })}
+        {/* name: data.name,
+          email: data.email,
+          lecturer: data.lecturer,
+          suggestion: data.suggestion,
+          organization: data.organization,
+          content: data.content,
+          satisfied: data.satisfied,
+          preperation: data.preperation,
+          expecting: data.expecting,
+          rating: data.rating, */}
+        <div className="feedbackCardContainer">
+          {feedbackForLecturer.map((feedback) => {
+            return (
+              <div className="feedbackCard">
+                <div>Lecturer : {feedback.lecturer}</div>
+                <div>Suggestion : {feedback.suggestion}</div>
+                <div>Organization : {feedback.organization}</div>
+                <div>Content : {feedback.content}</div>
+                <div>Satisfied : {feedback.satisfied}</div>
+                <div>Preparation : {feedback.preperation}</div>
+                <div>Expectation : {feedback.expecting}</div>
+                <div>Rating : {feedback.rating}</div>
+              </div>
+            );
+          })}
+        </div>
       </>
     );
   }

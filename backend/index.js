@@ -364,6 +364,7 @@ app.get("/lecturesForStudent", async function (req, res) {
           lectureHall: data.lectureHall,
           lecturer: data.lecturer,
           status: data.status,
+          alreadyRegistered: false,
         });
       });
 
@@ -403,29 +404,21 @@ app.get("/registerForLecture", async function (req, res) {
     });
 });
 
-app.get("/setFeedback", async function (req, res) {
-  const queryObject = url.parse(req.url, true).query;
-  // var data = {
-  //   name: feedback.name,
-  //   email: feedback.email,
-  //   lecturer: feedback.lecturer,
-  //   suggestion: feedback.suggestion,
-  //   organization: organization,
-  //   content: content,
-  //   satisfied: satisfied,
-  //   preperation: preperation,
-  //   expecting: expecting,
-  //   rating: rating,
-  // };
-  const docRef = await db
-    .collection("feedback")
-    .add(queryObject)
-    .then((docRef) => {
-      res.send("success");
-    })
-    .catch((error) => {
-      res.send("error");
-    });
+app.post("/setFeedback", async function (req, res) {
+  const feedback = req.body;
+  const docRef = await db.collection("feedback").add({
+    name: feedback.name,
+    email: feedback.email,
+    lecturer: feedback.lecturer,
+    suggestion: feedback.suggestion,
+    organization: feedback.organization,
+    content: feedback.content,
+    satisfied: feedback.satisfied,
+    preperation: feedback.preperation,
+    expecting: feedback.expecting,
+    rating: feedback.rating,
+  });
+  res.send("success");
 });
 
 app.get("/getFeedbackForLecturer", async function (req, res) {

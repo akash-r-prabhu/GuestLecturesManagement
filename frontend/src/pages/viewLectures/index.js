@@ -25,15 +25,17 @@ function ViewLectures() {
         setLecturesForLecturer(res.data);
       });
 
-    axios
-      .get("http://localhost:8001/lecturesForStudent", {
-        params: {
-          name: user.name,
-        },
-      })
-      .then((res) => {
-        setLecturesForStudent(res.data);
-      });
+    if (user.type == "student") {
+      axios
+        .get("http://localhost:8001/lecturesForStudent", {
+          params: {
+            name: "3333",
+          },
+        })
+        .then((res) => {
+          setLecturesForStudent(res.data);
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -188,6 +190,7 @@ function ViewLectures() {
               time={lecture.time}
               lecturer={lecture.lecturer}
               status={lecture.status}
+              alreadyRegistered={lecture.alreadyRegistered}
             />
           ))}
         </div>
