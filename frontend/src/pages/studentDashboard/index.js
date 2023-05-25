@@ -17,7 +17,7 @@ function StudentDashboard() {
               style={{ textAlign: "center", fontSize: 18 }}
               className="lec_title"
             >
-              Upcoming Lecture
+              <h2>UPCOMING LECTURES</h2>
             </p>
             <div
               className="profile_header"
@@ -36,9 +36,9 @@ function StudentDashboard() {
             />
             <div className="profile_info">
               <p style={{ textAlign: "center" }} className="lec_title">
-                Python Libraries
+                <h2>PYTHON LIBRARIES</h2>
               </p>
-              <p>Starts At:12:00Pm</p>
+              <p>27/05/2023 12:00 noon</p><br/>
               <p className="account_name">
                 In the Python libraries lecture, we can learn about the vast
                 ecosystem of libraries available to Python developers and how
@@ -61,13 +61,15 @@ function StudentDashboard() {
               <div className="post_item_info">
                 <div
                   className="post_item_owner"
-                  style={{ marginLeft: 8, padding: "0%" }}
+                  style={{ marginLeft: 8, padding: "0%",fontFamily: "TimeRanges",
+                  wordSpacing: 1.5,
+                  lineHeight: 1.5, }}
                 >
-                  <p>
+                  <p><i><b>
                     "Celebrating a constellation of brilliant minds who inspire,
                     educate, and transform. Join us as we unlock a universe of
                     knowledge with our esteemed guest lecturers."
-                  </p>
+                    </b></i></p>
                   <p
                     style={{
                       fontSize: 40,
@@ -75,7 +77,7 @@ function StudentDashboard() {
                       padding: "0%",
                     }}
                   >
-                    our guest lecturers
+                    <h2>OUR GUEST LECTURERS</h2>
                   </p>
                 </div>
               </div>
@@ -104,7 +106,7 @@ function StudentDashboard() {
           <div className="news">
             <div className="news_head">
               <div className="news_title">
-                <b>Announcements</b>
+                <h2>ANNOUNCEMENTS</h2>
               </div>
             </div>
             <br />
@@ -115,6 +117,9 @@ function StudentDashboard() {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "flex-start",
+                  fontFamily: "TimeRanges",
+                  wordSpacing: 1.5,
+                  lineHeight: 1.5,
                 }}
               >
                 <i
@@ -135,8 +140,11 @@ function StudentDashboard() {
           </div>
           <div className="news">
             <div className="news_head">
-              <div className="news_title">
-                <b>Important date</b>
+              <div className="news_title" style={{
+                  alignItems:"center",
+                  textAlign: "center",
+                }}>
+                <h2>IMPORTANT DATES</h2>
               </div>
             </div>
             <br />
@@ -147,6 +155,9 @@ function StudentDashboard() {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "flex-start",
+                  fontFamily: "TimeRanges",
+                  wordSpacing: 1.5,
+                  lineHeight: 1.5,
                 }}
               >
                 <i
@@ -159,7 +170,7 @@ function StudentDashboard() {
                   }}
                 />
                 Registered for Entrepreneurship: A lifetime of rewards, on 5th
-                Dec
+                Dec<br/><br/>
               </div>
             </div>
             <div className="new_list">
@@ -169,6 +180,9 @@ function StudentDashboard() {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "flex-start",
+                  fontFamily: "TimeRanges",
+                  wordSpacing: 1.5,
+                  lineHeight: 1.5,
                 }}
               >
                 <i
