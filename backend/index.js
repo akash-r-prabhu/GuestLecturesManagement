@@ -48,21 +48,46 @@ app.get("/lectureList", async function (req, res) {
 });
 
 // to register a user to database Users { name,type,email, password,dob,studentrollno}
-app.get("/register", async function (req, res) {
-  const queryObject = url.parse(req.url, true).query;
+// app.get("/register", async function (req, res) {
+//   const queryObject = url.parse(req.url, true).query;
+//   const user = {
+//     name: queryObject.name,
+//     type: queryObject.type,
+//     email: queryObject.email,
+//     password: queryObject.password,
+//     studentrollno: queryObject.studentrollno,
+//   };
+//   if (queryObject.type == "lecturer") {
+//     user.studentrollno = "";
+//     user.status = "pending";
+//   }
+
+//   try {
+//     const docRef = await db.collection("users").add(user);
+//     if (docRef.id) {
+//       res.send("success");
+//     } else {
+//       res.send("User not added");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     res.send("Error occurred");
+//   }
+// });
+app.post("/register", async function (req, res) {
   const user = {
-    name: queryObject.name,
-    type: queryObject.type,
-    email: queryObject.email,
-    password: queryObject.password,
-    dob: queryObject.dob,
-    studentrollno: queryObject.studentrollno,
+    name: req.body.name,
+    type: req.body.type,
+    email: req.body.email,
+    password: req.body.password,
+    studentrollno: req.body.studentrollno,
+    department: req.body.department,
+    areaofinterest: req.body.areaofinterest,
   };
-  if (queryObject.type == "lecturer") {
+  if (req.body.type == "lecturer") {
     user.studentrollno = "";
     user.status = "pending";
   }
-
   try {
     const docRef = await db.collection("users").add(user);
     if (docRef.id) {
