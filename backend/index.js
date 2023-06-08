@@ -74,6 +74,14 @@ app.get("/lectureList", async function (req, res) {
 //     res.send("Error occurred");
 //   }
 // });
+function generateGuestLecturerID() {
+  // Generate a unique ID for the guest lecturer
+  // You can implement your own logic here to generate the ID
+  // For example, you can use a combination of timestamp and random numbers
+  const timestamp = Date.now();
+  const randomNumbers = Math.floor(Math.random() * 1000);
+  return `GL${timestamp}${randomNumbers}`;
+}
 app.post("/register", async function (req, res) {
   const user = {
     name: req.body.name,
@@ -87,6 +95,7 @@ app.post("/register", async function (req, res) {
   if (req.body.type == "lecturer") {
     user.studentrollno = "";
     user.status = "pending";
+    user.guestlecturerid = generateGuestLecturerID();
   }
   try {
     const docRef = await db.collection("users").add(user);
