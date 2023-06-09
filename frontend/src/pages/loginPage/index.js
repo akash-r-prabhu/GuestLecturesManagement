@@ -7,25 +7,54 @@ import { useStateValue } from "../../context/StateProvider";
 import { useState } from "react";
 
 import "./style/style.css";
-import { use } from "express/lib/router";
+// import { use } from "express/lib/router";
 
 function LoginPage() {
   const [{ user }, dispatch] = useStateValue();
   const [registerOrlogin, setRegisterOrLogin] = useState("login");
   const [formUserType, setFormUserType] = useState();
+  const [formDepartment, setFormDepartment] = useState();
+  const [formAreasOfInterest, setFormAreasOfInterest] = useState();
 
-  useEffect(() => {
-    // dob2 type = text on focus
-    document.getElementById("dob2").addEventListener("focus", function () {
-      document.getElementById("dob2").type = "date";
-    });
+  const departments = [
+    "Computer Science",
+    "Electronics and Communication",
+    "Electrical and Electronics",
+    "Mechanical",
+    "Civil",
+    "Chemical",
+    "Biotechnology",
+    "Information Technology",
+  ];
+  const areasOfInterest = [
+    "Artificial Intelligence",
+    "Machine Learning",
 
-    // dob2 type = date on blur
-    document.getElementById("dob2").addEventListener("blur", function () {
-      document.getElementById("dob2").type = "text";
-      document.getElementById("dob2").placeholder = "Date of Birth";
-    });
-  }, []);
+    "Data Science",
+    "Internet of Things",
+    "Cloud Computing",
+    "Cyber Security",
+    "Blockchain",
+    "Augmented Reality",
+    "Virtual Reality",
+    "Robotics",
+    "Big Data",
+    "Computer Vision",
+    "Natural Language Processing",
+    "Image Processing",
+  ];
+
+  // useEffect(() => {
+
+  //   document.getElementById("dob2").addEventListener("focus", function () {
+  //     document.getElementById("dob2").type = "date";
+  //   });
+
+  //   document.getElementById("dob2").addEventListener("blur", function () {
+  //     document.getElementById("dob2").type = "text";
+  //     document.getElementById("dob2").placeholder = "Date of Birth";
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (formUserType == "student") {
@@ -60,7 +89,7 @@ function LoginPage() {
     console.log("Form submitted");
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
-    var usertype = document.getElementById("usertype").value;
+    // var usertype = document.getElementById("usertype").value;
     // clear the form
     document.getElementById("loginForm").reset();
 
@@ -71,96 +100,167 @@ function LoginPage() {
       password;
     axios.get(url).then((response) => {
       console.log(response.data);
-      if (response.data.type == usertype) {
-        if (usertype == "student") {
-          swal("Login Successful", "Welcome Student", "success");
-          dispatch({
-            type: "SET_USER",
-            user: response.data,
-            usertype: "student",
-            userid: response.data.id,
-          });
-          reactLocalStorage.setObject("user", response.data);
-          document.getElementById("loginForm").reset();
-        } else if (usertype == "lecturer") {
-          swal("Login Successful", "Welcome Lecturer", "success");
-          dispatch({
-            type: "SET_USER",
-            user: response.data,
-            usertype: "lecturer",
-            userid: response.data.id,
-          });
+      // if (response.data.type == usertype) {
+      if (response.data.type == "student") {
+        swal("Login Successful", "Welcome Student", "success");
+        dispatch({
+          type: "SET_USER",
+          user: response.data,
+          usertype: "student",
+          userid: response.data.id,
+        });
+        reactLocalStorage.setObject("user", response.data);
+        document.getElementById("loginForm").reset();
+      } else if (response.data.type == "lecturer") {
+        swal("Login Successful", "Welcome Lecturer", "success");
+        dispatch({
+          type: "SET_USER",
+          user: response.data,
+          usertype: "lecturer",
+          userid: response.data.id,
+        });
 
-          reactLocalStorage.setObject("user", response.data);
-          document.getElementById("loginForm").reset();
-        } else if (usertype == "admin") {
-          swal("Login Successful", "Welcome Admin", "success");
-          dispatch({
-            type: "SET_USER",
-            user: response.data,
-            usertype: "admin",
-            userid: response.data.id,
-          });
-          reactLocalStorage.setObject("user", response.data);
-          document.getElementById("loginForm").reset();
-        } else {
-          swal("Invalid Credentials", "Please try again", "error");
-          document.getElementById("loginForm").reset();
-        }
+        reactLocalStorage.setObject("user", response.data);
+        document.getElementById("loginForm").reset();
+      } else if (response.data.type == "admin") {
+        swal("Login Successful", "Welcome Admin", "success");
+        dispatch({
+          type: "SET_USER",
+          user: response.data,
+          usertype: "admin",
+          userid: response.data.id,
+        });
+        reactLocalStorage.setObject("user", response.data);
+        document.getElementById("loginForm").reset();
       } else {
         swal("Invalid Credentials", "Please try again", "error");
         document.getElementById("loginForm").reset();
       }
+      // }
+      // else {
+      //   swal("Invalid Credentials", "Please try again", "error");
+      //   document.getElementById("loginForm").reset();
+      // }
     });
   }
+  // function onsubmitform2(e) {
+  //   e.preventDefault();
+  //   console.log("Form submitted");
+  //   var name = document.getElementById("name2").value;
+  //   var email = document.getElementById("email2").value;
+  //   var password = document.getElementById("password2").value;
+  //   var studentrollno = document.getElementById("studentrollno2").value;
+  //   var type = document.getElementById("type2").value;
+  //   var department = document.getElementById("department2").value;
+  //   const areaofinterest = formAreasOfInterest;
+  //   console.log(department);
+  //   console.log(areaofinterest);
+  //   // clear the form
+  //   document.getElementById("registerForm").reset();
+  //   // http://localhost:8001/register?name=abc&type=student&email=abc@gmail&password=123&dob=2021-10-10&studentrollno=123
+
+  //   var registerUrl =
+  //     "http://localhost:8001/register?name=" +
+  //     name +
+  //     "&type=" +
+  //     type +
+  //     "&email=" +
+  //     email +
+  //     "&password=" +
+  //     password +
+  //     "&studentrollno=" +
+  //     studentrollno +
+  //     "&department=" +
+  //     department +
+  //     "&areaofinterest=" +
+  //     areaofinterest.toString();
+
+  //   var checkEmailUrl = "http://localhost:8001/checkEmail?email=" + email;
+  //   axios.get(checkEmailUrl).then((response) => {
+  //     console.log(response.data);
+  //     if (response.data == "success") {
+  //       swal("Email already exists", "Please try again", "error");
+  //       document.getElementById("registerForm").reset();
+  //       toggleFormDisplay();
+  //     } else {
+  //       axios.get(registerUrl).then((response) => {
+  //         console.log(response.data);
+  //         if (response.data == "success") {
+  //           swal("Registration Successful", "Please login", "success");
+  //           toggleFormDisplay();
+  //           document.getElementById("registerForm").reset();
+  //         } else {
+  //           swal("Registration Failed", "Please try again", "error");
+  //           document.getElementById("registerForm").reset();
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
   function onsubmitform2(e) {
     e.preventDefault();
     console.log("Form submitted");
     var name = document.getElementById("name2").value;
     var email = document.getElementById("email2").value;
     var password = document.getElementById("password2").value;
-    var dob = document.getElementById("dob2").value;
     var studentrollno = document.getElementById("studentrollno2").value;
     var type = document.getElementById("type2").value;
+    var department = document.getElementById("department2").value;
+    const areaofinterest = formAreasOfInterest;
+    console.log(department);
+    console.log(areaofinterest);
     // clear the form
     document.getElementById("registerForm").reset();
-    // http://localhost:8001/register?name=abc&type=student&email=abc@gmail&password=123&dob=2021-10-10&studentrollno=123
-    var registerUrl =
-      "http://localhost:8001/register?name=" +
-      name +
-      "&type=" +
-      type +
-      "&email=" +
-      email +
-      "&password=" +
-      password +
-      "&dob=" +
-      dob +
-      "&studentrollno=" +
-      studentrollno;
 
-    var checkEmailUrl = "http://localhost:8001/checkEmail?email=" + email;
-    axios.get(checkEmailUrl).then((response) => {
-      console.log(response.data);
-      if (response.data == "success") {
-        swal("Email already exists", "Please try again", "error");
-        document.getElementById("registerForm").reset();
-        toggleFormDisplay();
-      } else {
-        axios.get(registerUrl).then((response) => {
-          console.log(response.data);
-          if (response.data == "success") {
-            swal("Registration Successful", "Please login", "success");
-            toggleFormDisplay();
-            document.getElementById("registerForm").reset();
-          } else {
-            swal("Registration Failed", "Please try again", "error");
-            document.getElementById("registerForm").reset();
-          }
-        });
-      }
-    });
+    var registerUrl = "http://localhost:8001/register";
+    var checkEmailUrl = "http://localhost:8001/checkEmail";
+
+    axios
+      .get(checkEmailUrl, {
+        params: {
+          email: email,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data === "success") {
+          swal("Email already exists", "Please try again", "error");
+          document.getElementById("registerForm").reset();
+          toggleFormDisplay();
+        } else {
+          axios
+            .post(registerUrl, {
+              name: name,
+              type: type,
+              email: email,
+              password: password,
+              studentrollno: studentrollno,
+              department: department,
+              areaofinterest: areaofinterest.toString(),
+            })
+            .then((response) => {
+              console.log(response.data);
+              if (response.data === "success") {
+                swal("Registration Successful", "Please login", "success");
+                toggleFormDisplay();
+                document.getElementById("registerForm").reset();
+              } else {
+                swal("Registration Failed", "Please try again", "error");
+                document.getElementById("registerForm").reset();
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              swal("Error occurred", "Please try again", "error");
+            });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        swal("Error occurred", "Please try again", "error");
+      });
   }
+
   return (
     <>
       <div className="loginBoxLeft">
@@ -207,12 +307,11 @@ function LoginPage() {
 
                 <br />
 
-                {/* <label htmlFor="usertype">User Type:</label> */}
-                <select id="usertype" name="usertype" required>
+                {/* <select id="usertype" name="usertype" required>
                   <option value="admin">Admin</option>
                   <option value="student">Student</option>
                   <option value="lecturer">Lecturer</option>
-                </select>
+                </select> */}
               </div>
               <br />
               <div className="form-group">
@@ -265,28 +364,11 @@ function LoginPage() {
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                 />
-                <br />
-                {/* <label htmlFor="dob">Date of Birth:</label> */}
-                {/* <input
-                onfocus="(this.type='date')"
-                type="text"
-                id="dob2"
-                name="dob"
-                required
-                placeholder="Date of Birth"
-              /> */}
 
-                <input
-                  type="text"
-                  id="dob2"
-                  name="dob"
-                  placeholder="Date of Birth"
-                  required
-                />
                 <br />
 
                 {/* <label htmlFor="studentrollno">Student Roll No:</label> */}
-                
+
                 <select
                   id="type2"
                   name="type"
@@ -308,6 +390,46 @@ function LoginPage() {
                   // required
                   placeholder="Student Roll Number"
                 />
+                <br />
+                {/* department as dropdown */}
+                <select
+                  id="department2"
+                  name="department"
+                  required
+                  onChange={(e) => {
+                    setFormDepartment(e.target.value);
+                  }}
+                >
+                  <option>Department</option>
+                  {departments.map((department) => {
+                    return <option value={department}>{department}</option>;
+                  })}
+                </select>
+                {/* areas of interest as dropdown */}
+                <br />
+                <select
+                  multiple
+                  id="aoi2"
+                  name="aoi"
+                  required
+                  onChange={(e) => {
+                    const selectedAreasOfInterest = Array.from(
+                      e.target.selectedOptions,
+                      (option) => option.value
+                    );
+                    setFormAreasOfInterest(selectedAreasOfInterest);
+                  }}
+                >
+                  <option>Areas of Interest</option>
+                  {areasOfInterest.map((areaOfInterest) => {
+                    return (
+                      <option key={areaOfInterest} value={areaOfInterest}>
+                        {areaOfInterest}
+                      </option>
+                    );
+                  })}
+                </select>
+
                 <br />
                 <br />
                 <button type="submit">SIGN UP</button>
