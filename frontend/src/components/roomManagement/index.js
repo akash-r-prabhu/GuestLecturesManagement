@@ -9,12 +9,16 @@ function RoomManagement(props) {
     Swal.fire({
       title: "Enter Lecture Hall Details",
       html:
-        '<input id="swal-input1" class="swal2-input" placeholder="Name">' +
-        '<input id="swal-input2" class="swal2-input" placeholder="Capacity">' +
-        '<input id="swal-input3" class="swal2-input" placeholder="Projector Count">' +
-        '<input id="swal-input4" class="swal2-input" placeholder="Speakers Count">' +
-        '<input id="swal-input5" class="swal2-input" placeholder="Computers Count">' +
-        '<input id="swal-input6" class="swal2-input" placeholder="isAirConditioned">',
+        '<input required id="swal-input1" class="swal2-input" placeholder="Name">' +
+        '<input required id="swal-input2" class="swal2-input" placeholder="Capacity">' +
+        '<input required id="swal-input3" class="swal2-input" placeholder="Projector Count">' +
+        '<input required id="swal-input4" class="swal2-input" placeholder="Speakers Count">' +
+        '<input required id="swal-input5" class="swal2-input" placeholder="Computers Count">' +
+        '<select required id="swal-input6" class="swal2-input" placeholder="Air Conditioned">' +
+        "<option >Is Air Conditioned</option>" +
+        '<option value="Yes">Yes</option>' +
+        '<option value="No">No</option>' +
+        "</select>",
 
       focusConfirm: false,
       preConfirm: () => {
