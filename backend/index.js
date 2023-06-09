@@ -48,21 +48,55 @@ app.get("/lectureList", async function (req, res) {
 });
 
 // to register a user to database Users { name,type,email, password,dob,studentrollno}
-app.get("/register", async function (req, res) {
-  const queryObject = url.parse(req.url, true).query;
+// app.get("/register", async function (req, res) {
+//   const queryObject = url.parse(req.url, true).query;
+//   const user = {
+//     name: queryObject.name,
+//     type: queryObject.type,
+//     email: queryObject.email,
+//     password: queryObject.password,
+//     studentrollno: queryObject.studentrollno,
+//   };
+//   if (queryObject.type == "lecturer") {
+//     user.studentrollno = "";
+//     user.status = "pending";
+//   }
+
+//   try {
+//     const docRef = await db.collection("users").add(user);
+//     if (docRef.id) {
+//       res.send("success");
+//     } else {
+//       res.send("User not added");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     res.send("Error occurred");
+//   }
+// });
+function generateGuestLecturerID() {
+  // Generate a unique ID for the guest lecturer
+  // You can implement your own logic here to generate the ID
+  // For example, you can use a combination of timestamp and random numbers
+  const timestamp = Date.now();
+  const randomNumbers = Math.floor(Math.random() * 1000);
+  return `GL${timestamp}${randomNumbers}`;
+}
+app.post("/register", async function (req, res) {
   const user = {
-    name: queryObject.name,
-    type: queryObject.type,
-    email: queryObject.email,
-    password: queryObject.password,
-    dob: queryObject.dob,
-    studentrollno: queryObject.studentrollno,
+    name: req.body.name,
+    type: req.body.type,
+    email: req.body.email,
+    password: req.body.password,
+    studentrollno: req.body.studentrollno,
+    department: req.body.department,
+    areaofinterest: req.body.areaofinterest,
   };
-  if (queryObject.type == "lecturer") {
+  if (req.body.type == "lecturer") {
     user.studentrollno = "";
     user.status = "pending";
+    user.guestlecturerid = generateGuestLecturerID();
   }
-
   try {
     const docRef = await db.collection("users").add(user);
     if (docRef.id) {
@@ -127,12 +161,18 @@ app.get("/lectureHalls", async function (req, res) {
   const unsubscribe = db.collection("lectureHalls").onSnapshot((snapshot) => {
     lectureHalls.length = 0; // Clear the array before updating
 
+    // Name, Capacity, ProjectorCount, SpeakersCount, isAirConditioned, ComputersCount,
+
     snapshot.forEach((doc) => {
       const data = doc.data();
       lectureHalls.push({
         id: doc.id,
         name: data.name,
         capacity: data.capacity,
+        projectorCount: data.projectorCount,
+        speakersCount: data.speakersCount,
+        isAirConditioned: data.isAirConditioned,
+        computersCount: data.computersCount,
       });
     });
 
@@ -142,21 +182,23 @@ app.get("/lectureHalls", async function (req, res) {
   });
 });
 
-app.get("/addLectureHall", async function (req, res) {
-  const queryObject = url.parse(req.url, true).query;
+app.post("/addLectureHall", async function (req, res) {
   const lectureHall = {
-    name: queryObject.name,
-    capacity: queryObject.capacity,
+    name: req.body.name,
+    capacity: req.body.capacity,
+    projectorCount: req.body.projectorCount,
+    speakersCount: req.body.speakersCount,
+    isAirConditioned: req.body.isAirConditioned,
+    computersCount: req.body.computersCount,
   };
-  const docRef = await db
-    .collection("lectureHalls")
-    .add(lectureHall)
-    .then((docRef) => {
-      res.send("success");
-    })
-    .catch((error) => {
-      res.send("error");
-    });
+
+  try {
+    const docRef = await db.collection("lectureHalls").add(lectureHall);
+    res.send("success");
+  } catch (error) {
+    console.log(error);
+    res.send("error");
+  }
 });
 
 // sample url: http://localhost:8001/addLectureHall?name=lectureHall1&capacity=100
