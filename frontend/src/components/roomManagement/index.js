@@ -5,35 +5,58 @@ import axios from "axios";
 
 function RoomManagement(props) {
   function addHall() {
+    // Name, Capacity, ProjectorCount, SpeakersCount, isAirConditioned, ComputersCount,
     Swal.fire({
       title: "Enter Lecture Hall Details",
       html:
         '<input id="swal-input1" class="swal2-input" placeholder="Name">' +
-        '<input id="swal-input2" class="swal2-input" placeholder="Capacity">',
+        '<input id="swal-input2" class="swal2-input" placeholder="Capacity">' +
+        '<input id="swal-input3" class="swal2-input" placeholder="Projector Count">' +
+        '<input id="swal-input4" class="swal2-input" placeholder="Speakers Count">' +
+        '<input id="swal-input5" class="swal2-input" placeholder="Computers Count">' +
+        '<input id="swal-input6" class="swal2-input" placeholder="isAirConditioned">',
+
       focusConfirm: false,
       preConfirm: () => {
         const name = Swal.getPopup().querySelector("#swal-input1").value;
         const capacity = Swal.getPopup().querySelector("#swal-input2").value;
+        const projectorCount =
+          Swal.getPopup().querySelector("#swal-input3").value;
+        const speakersCount =
+          Swal.getPopup().querySelector("#swal-input4").value;
+        const computersCount =
+          Swal.getPopup().querySelector("#swal-input5").value;
+
+        const isAirConditioned =
+          Swal.getPopup().querySelector("#swal-input6").value;
+
         if (!name || !capacity) {
           Swal.showValidationMessage(`Please enter name and capacity`);
         }
 
-        return { name: name, capacity: capacity };
+        return {
+          name: name,
+          capacity: capacity,
+          isAirConditioned: isAirConditioned,
+          projectorCount: projectorCount,
+          speakersCount: speakersCount,
+          computersCount: computersCount,
+        };
       },
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(result.value.name);
         console.log(result.value.capacity);
         axios
-          .get(
-            "http://localhost:8001/addLectureHall?name=" +
-              result.value.name +
-              "&capacity=" +
-              result.value.capacity
-          )
+          .post("http://localhost:8001/addLectureHall", {
+            name: result.value.name,
+            capacity: result.value.capacity,
+            projectorCount: result.value.projectorCount,
+            speakersCount: result.value.speakersCount,
+            isAirConditioned: result.value.isAirConditioned,
+            computersCount: result.value.computersCount,
+          })
           .then((response) => {
-            console.log(response.data);
-
             if (response.data == "success") {
               Swal.fire({
                 icon: "success",
@@ -115,6 +138,19 @@ function RoomManagement(props) {
                 alt="Room 1"
               />
               <p className="room-description">CAPACITY:{room.capacity}</p>
+              <p className="room-description">
+                PROJECTOR COUNT:{room.projectorCount}
+              </p>
+              <p className="room-description">
+                SPEAKERS COUNT:{room.speakersCount}
+              </p>
+              <p className="room-description">
+                COMPUTERS COUNT:{room.computersCount}
+              </p>
+              <p className="room-description">
+                AIR CONDITIONED:{room.isAirConditioned}
+              </p>
+
               <button className="book-button" onclick="bookRoom(1)">
                 Book{" "}
               </button>
