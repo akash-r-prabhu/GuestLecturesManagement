@@ -24,10 +24,13 @@ function ViewLectures() {
 
   const filter = () => {
     var addtoHtml = "";
+    var addtoHtml2 = "";
     addtoHtml += "<option >" + "Select a title" + "</option>";
     lectures.map((item) => {
       addtoHtml +=
         "<option value=" + item.title + ">" + item.title + "</option>";
+      addtoHtml2 +=
+        "<option value=" + item.lecturer + ">" + item.lecturer + "</option>";
     });
     Swal.fire({
       html:
@@ -35,7 +38,15 @@ function ViewLectures() {
         addtoHtml +
         "</select>" +
         // select date
-        '<input id="filter-swal-input2" class="swal2-input" placeholder="Date" type="date">',
+        '<input id="filter-swal-input2" class="swal2-input" placeholder="Date" type="date">' +
+        // lecturer
+        '<select id="filter-swal-input3" class="swal2-input" placeholder="Lecturer">' +
+        '<option value="">' +
+        "Select a lecturer" +
+        "</option>" +
+        addtoHtml2 +
+        "</select>",
+
       focusConfirm: false,
 
       preConfirm: () => {
@@ -48,6 +59,11 @@ function ViewLectures() {
 
         if (date) {
           setLectures(lectures.filter((item) => item.date == date));
+        }
+
+        const lecturer = document.getElementById("filter-swal-input3").value;
+        if (lecturer) {
+          setLectures(lectures.filter((item) => item.lecturer == lecturer));
         }
       },
     });
