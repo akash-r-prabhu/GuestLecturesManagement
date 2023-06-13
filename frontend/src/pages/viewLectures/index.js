@@ -33,6 +33,7 @@ function ViewLectures() {
         "<option value=" + item.lecturer + ">" + item.lecturer + "</option>";
     });
     Swal.fire({
+      title: "Filter Lectures",
       html:
         '<select id="filter-swal-input1" class="swal2-input" placeholder="Lecture">' +
         addtoHtml +
