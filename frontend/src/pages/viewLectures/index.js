@@ -13,11 +13,19 @@ function ViewLectures() {
   const [{ user }, dispatch] = useStateValue();
   const [lecturesForLecturer, setLecturesForLecturer] = useState([]);
   const [lecturesForStudent, setLecturesForStudent] = useState([]);
+  // tomorrows date in format DD-MM-YYYY
+  // const today = new Date().toISOString().slice(0, 10);
+  const today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
+
+  // current time
+  // const time = new Date().toLocaleTimeString();
 
   const filter = () => {
     var addtoHtml = "";
+    addtoHtml += "<option >" + "Select a title" + "</option>";
     lectures.map((item) => {
-      addtoHtml += "<option >" + "Select a title" + "</option>";
       addtoHtml +=
         "<option value=" + item.title + ">" + item.title + "</option>";
     });
@@ -33,12 +41,14 @@ function ViewLectures() {
       preConfirm: () => {
         const lecture_title =
           document.getElementById("filter-swal-input1").value;
-        // set lectures only where lecture title is equal to lecture_title
-        // setLectures(lectures.filter((item) => item.title == lecture_title));
+        if (lecture_title) {
+          setLectures(lectures.filter((item) => item.title == lecture_title));
+        }
         const date = document.getElementById("filter-swal-input2").value;
-        console.log(date);
-        // set lectures only where lecture date is equal to date
-        setLectures(lectures.filter((item) => item.date == date));
+
+        if (date) {
+          setLectures(lectures.filter((item) => item.date == date));
+        }
       },
     });
   };
@@ -104,8 +114,11 @@ function ViewLectures() {
       title: "Add Lecture",
       html:
         '<input id="swal-input1" class="swal2-input" placeholder="Title" >' +
-        '<input id="swal-input2" class="swal2-input" placeholder="Date" type="date">' +
-        '<input id="swal-input3" class="swal2-input" placeholder="Time" type="time"> </br>' +
+        '<input id="swal-input2" class="swal2-input" placeholder="Date" type="date" min=' +
+        today +
+        "> </br>" +
+        '<input id="swal-input3" class="swal2-input" placeholder="Time" type="time" ' +
+        "> </br>" +
         '<select id="swal-input4" class="swal2-input" placeholder="Lecturer">' +
         addtoHtml +
         "</select>" +
