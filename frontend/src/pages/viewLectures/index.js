@@ -14,6 +14,35 @@ function ViewLectures() {
   const [lecturesForLecturer, setLecturesForLecturer] = useState([]);
   const [lecturesForStudent, setLecturesForStudent] = useState([]);
 
+  const filter = () => {
+    var addtoHtml = "";
+    lectures.map((item) => {
+      addtoHtml += "<option >" + "Select a title" + "</option>";
+      addtoHtml +=
+        "<option value=" + item.title + ">" + item.title + "</option>";
+    });
+    Swal.fire({
+      html:
+        '<select id="filter-swal-input1" class="swal2-input" placeholder="Lecture">' +
+        addtoHtml +
+        "</select>" +
+        // select date
+        '<input id="filter-swal-input2" class="swal2-input" placeholder="Date" type="date">',
+      focusConfirm: false,
+
+      preConfirm: () => {
+        const lecture_title =
+          document.getElementById("filter-swal-input1").value;
+        // set lectures only where lecture title is equal to lecture_title
+        // setLectures(lectures.filter((item) => item.title == lecture_title));
+        const date = document.getElementById("filter-swal-input2").value;
+        console.log(date);
+        // set lectures only where lecture date is equal to date
+        setLectures(lectures.filter((item) => item.date == date));
+      },
+    });
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:8001/lecturesForLecturer", {
@@ -135,6 +164,7 @@ function ViewLectures() {
         >
           ADD LECTURE
         </button>
+        <button onClick={() => filter()}>Filter lecture</button>
 
         <div className="c">
           {lectures.map((lecture) => (
