@@ -13,6 +13,62 @@ function ViewLectures() {
   const [{ user }, dispatch] = useStateValue();
   const [lecturesForLecturer, setLecturesForLecturer] = useState([]);
   const [lecturesForStudent, setLecturesForStudent] = useState([]);
+  // tomorrows date in format DD-MM-YYYY
+  // const today = new Date().toISOString().slice(0, 10);
+  const today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
+
+  // current time
+  // const time = new Date().toLocaleTimeString();
+
+  const filter = () => {
+    var addtoHtml = "";
+    var addtoHtml2 = "";
+    addtoHtml += "<option >" + "Select a title" + "</option>";
+    lectures.map((item) => {
+      addtoHtml +=
+        "<option value=" + item.title + ">" + item.title + "</option>";
+      addtoHtml2 +=
+        "<option value=" + item.lecturer + ">" + item.lecturer + "</option>";
+    });
+    Swal.fire({
+      title: "Filter Lectures",
+      html:
+        '<select id="filter-swal-input1" class="swal2-input" placeholder="Lecture">' +
+        addtoHtml +
+        "</select>" +
+        // select date
+        '<input id="filter-swal-input2" class="swal2-input" placeholder="Date" type="date">' +
+        // lecturer
+        '<select id="filter-swal-input3" class="swal2-input" placeholder="Lecturer">' +
+        '<option value="">' +
+        "Select a lecturer" +
+        "</option>" +
+        addtoHtml2 +
+        "</select>",
+
+      focusConfirm: false,
+
+      preConfirm: () => {
+        const lecture_title =
+          document.getElementById("filter-swal-input1").value;
+        if (lecture_title) {
+          setLectures(lectures.filter((item) => item.title == lecture_title));
+        }
+        const date = document.getElementById("filter-swal-input2").value;
+
+        if (date) {
+          setLectures(lectures.filter((item) => item.date == date));
+        }
+
+        const lecturer = document.getElementById("filter-swal-input3").value;
+        if (lecturer) {
+          setLectures(lectures.filter((item) => item.lecturer == lecturer));
+        }
+      },
+    });
+  };
 
   useEffect(() => {
     axios
@@ -75,8 +131,11 @@ function ViewLectures() {
       title: "Add Lecture",
       html:
         '<input id="swal-input1" class="swal2-input" placeholder="Title" >' +
-        '<input id="swal-input2" class="swal2-input" placeholder="Date" type="date">' +
-        '<input id="swal-input3" class="swal2-input" placeholder="Time" type="time"> </br>' +
+        '<input id="swal-input2" class="swal2-input" placeholder="Date" type="date" min=' +
+        today +
+        "> </br>" +
+        '<input id="swal-input3" class="swal2-input" placeholder="Time" type="time" ' +
+        "> </br>" +
         '<select id="swal-input4" class="swal2-input" placeholder="Lecturer">' +
         addtoHtml +
         "</select>" +
@@ -135,6 +194,7 @@ function ViewLectures() {
         >
           ADD LECTURE
         </button>
+        <button onClick={() => filter()}>Filter lecture</button>
 
         <div className="c">
           {lectures.map((lecture) => (
