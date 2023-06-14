@@ -95,15 +95,17 @@ function ViewLectures() {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8001/lecturesForLecturer", {
-        params: {
-          name: user.name,
-        },
-      })
-      .then((res) => {
-        setLecturesForLecturer(res.data);
-      });
+    if (user.type == "lecturer") {
+      axios
+        .get("http://localhost:8001/lecturesForLecturer", {
+          params: {
+            name: user.name,
+          },
+        })
+        .then((res) => {
+          setLecturesForLecturer(res.data);
+        });
+    }
 
     if (user.type == "student") {
       axios
@@ -210,16 +212,14 @@ function ViewLectures() {
         <br />
         <br />
         <br />
-
-        <button
-          style={{ "background-color": "#EE2B47" }}
-          className="addLectureButton"
-          onClick={() => addLecture()}
-        >
-          ADD LECTURE
-        </button>
-        <button onClick={() => filter("admin")}>Filter lecture</button>
-
+        <br />
+        <div className="CenterButtons">
+          <button onClick={() => addLecture()}>ADD LECTURE</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button onClick={() => filter("admin")}>FILTER</button>
+        </div>
+        <br />
+        <br />
         <div className="c">
           {lectures.map((lecture) => (
             <LectureBox

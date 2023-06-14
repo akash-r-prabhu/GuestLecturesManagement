@@ -126,17 +126,14 @@ function AdminDashboard() {
 
             {lecturerRequests.map((request) => (
               <div className="request-box">
-                <h2>Request Details</h2>
+                <h2>GUEST LECTURER REQUEST</h2>
                 <p>Request ID: {request?.id} </p>
-                <p>Requester Name: {request.name}</p>
-                <p>Requester Email: {request.email}</p>
-                {/* ...Rest of the request details... */}
-                <h2>Guest Speaker Information</h2>
-                <p>Speaker Name: {request.name}</p>
-                {/* ...Rest of the speaker information... */}
-                {/* ...Rest of the sections... */}
-                <h2>Status and Actions</h2>
+                <p>Requestor Name: {request.name}</p>
+                <p>Requestor Email: {request.email}</p>
+                <p>Areas of Interest: {request.areaofinterest}</p>
+                <br />
                 <p>Status: {request?.status || "pending"}</p>
+                <br />
                 <button
                   className="action-button"
                   onClick={() => approveLecturer(request.id)}

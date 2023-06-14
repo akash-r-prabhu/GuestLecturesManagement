@@ -156,7 +156,7 @@ function RoomManagement(props) {
               </p>
 
               <button className="book-button" onclick="bookRoom(1)">
-                Book{" "}
+                Edit
               </button>
               <button
                 className="book-button"
