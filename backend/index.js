@@ -36,7 +36,10 @@ app.get("/lectureList", async function (req, res) {
     lectures.length = 0; // Clear the array before updating
 
     snapshot.forEach((doc) => {
-      lectures.push(doc.data());
+      // x = doc.data() and x.id = doc.id
+      var x = doc.data();
+      x.id = doc.id;
+      lectures.push(x);
     });
 
     // Send the updated lectures
@@ -231,6 +234,7 @@ app.get("/lecturerRequests", async function (req, res) {
           dob: data.dob,
           type: data.type,
           status: data.status,
+          areaofinterest: data.areaofinterest,
         });
       });
 
@@ -495,6 +499,16 @@ app.get("/getFeedbackForLecturer", async function (req, res) {
       res.send(feedbacks);
       unsubscribe();
     });
+});
+
+app.post("/cancelLecture", async function (req, res) {
+  const id = req.body.id;
+  try {
+    const docRef = await db.collection("lectures").doc(id).delete();
+    res.send("success");
+  } catch {
+    res.send("error");
+  }
 });
 
 // sample url http://localhost:8001/registerForLecture?docId=1&name=Kamal

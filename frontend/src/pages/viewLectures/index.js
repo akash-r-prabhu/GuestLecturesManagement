@@ -23,7 +23,6 @@ function ViewLectures() {
   // const time = new Date().toLocaleTimeString();
 
   const filter = (arg) => {
-  const filter = (arg) => {
     var addtoHtml = "";
     var addtoHtml2 = "";
     addtoHtml += "<option >" + "Select a title" + "</option>";
@@ -59,48 +58,11 @@ function ViewLectures() {
             setLectures(lectures.filter((item) => item.title == lecture_title));
           }
           const date = document.getElementById("filter-swal-input2").value;
-        if (arg === "admin") {
-          const lecture_title =
-            document.getElementById("filter-swal-input1").value;
-          if (lecture_title) {
-            setLectures(lectures.filter((item) => item.title == lecture_title));
-          }
-          const date = document.getElementById("filter-swal-input2").value;
 
           if (date) {
             setLectures(lectures.filter((item) => item.date == date));
           }
-          if (date) {
-            setLectures(lectures.filter((item) => item.date == date));
-          }
 
-          const lecturer = document.getElementById("filter-swal-input3").value;
-          if (lecturer) {
-            setLectures(lectures.filter((item) => item.lecturer == lecturer));
-          }
-        } else if (arg === "student") {
-          const lecture_title =
-            document.getElementById("filter-swal-input1").value;
-          if (lecture_title) {
-            setLecturesForStudent(
-              lecturesForStudent.filter((item) => item.title == lecture_title)
-            );
-          }
-          const date = document.getElementById("filter-swal-input2").value;
-
-          if (date) {
-            setLecturesForStudent(
-              lecturesForStudent.filter((item) => item.date == date)
-            );
-          }
-
-          const lecturer = document.getElementById("filter-swal-input3").value;
-          if (lecturer) {
-            setLecturesForStudent(
-              lecturesForStudent.filter((item) => item.lecturer == lecturer)
-            );
-          }
-        }
           const lecturer = document.getElementById("filter-swal-input3").value;
           if (lecturer) {
             setLectures(lectures.filter((item) => item.lecturer == lecturer));
@@ -133,15 +95,17 @@ function ViewLectures() {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8001/lecturesForLecturer", {
-        params: {
-          name: user.name,
-        },
-      })
-      .then((res) => {
-        setLecturesForLecturer(res.data);
-      });
+    if (user.type == "lecturer") {
+      axios
+        .get("http://localhost:8001/lecturesForLecturer", {
+          params: {
+            name: user.name,
+          },
+        })
+        .then((res) => {
+          setLecturesForLecturer(res.data);
+        });
+    }
 
     if (user.type == "student") {
       axios
@@ -248,17 +212,14 @@ function ViewLectures() {
         <br />
         <br />
         <br />
-
-        <button
-          style={{ "background-color": "#EE2B47" }}
-          className="addLectureButton"
-          onClick={() => addLecture()}
-        >
-          ADD LECTURE
-        </button>
-        <button onClick={() => filter("admin")}>Filter lecture</button>
-        <button onClick={() => filter("admin")}>Filter lecture</button>
-
+        <br />
+        <div className="CenterButtons">
+          <button onClick={() => addLecture()}>ADD LECTURE</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button onClick={() => filter("admin")}>FILTER</button>
+        </div>
+        <br />
+        <br />
         <div className="c">
           {lectures.map((lecture) => (
             <LectureBox
@@ -303,7 +264,6 @@ function ViewLectures() {
         <br />
         <br />
         <br />
-        <button onClick={() => filter("student")}>Filter lecture</button>
         <button onClick={() => filter("student")}>Filter lecture</button>
         <div className="c">
           {lecturesForStudent.map((lecture) => (

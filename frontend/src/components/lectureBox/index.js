@@ -11,6 +11,36 @@ function LectureBox(props) {
   useEffect(() => {
     console.log(user);
   }, []);
+  const cancelLecture = () => {
+    console.log(props);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post("http://localhost:8001/cancelLecture", {
+            id: props.id,
+          })
+          .then((res) => {
+            Swal.fire("Deleted!", "Your Lecture has been deleted", "success");
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          });
+      }
+    });
+  };
 
   function acceptLectureRequest(id) {
     return function () {
@@ -66,14 +96,23 @@ function LectureBox(props) {
   return (
     <div className="lecture-box">
       <img src={LectureImage} alt={props.title} />
-      <p>Title {props.title}</p>
-      <p>Date {props.date}</p>
-      <p>Time {props.time}</p>
-      <p>Lecturer {props.lecturer}</p>
-      {props.status == "pending" ? (
-        <p>Status Pending</p>
+      <p>
+        <b>Title : </b> {props.title}
+      </p>
+      <p>
+        <b> Date : </b> {props.date} {props.time}
+      </p>
+      <p>
+        <b>Resource Person : </b> {props.lecturer}
+      </p>
+      {props.status == "pending" && user.type != "student" ? (
+        <p>
+          <b>Status : </b> Pending
+        </p>
       ) : (
-        <p>Status Accepted</p>
+        <p>
+          <b>Status : </b> Accepted
+        </p>
       )}
       {/* <a href="#" className="register-button">
         Register
@@ -84,6 +123,16 @@ function LectureBox(props) {
           onClick={acceptLectureRequest(props.id)}
         >
           Accept
+        </button>
+      ) : (
+        <></>
+      )}
+      {user.type == "admin" ? (
+        <button
+          className="CancelLectureButton"
+          onClick={() => cancelLecture(props.id)}
+        >
+          Cancel Lecture
         </button>
       ) : (
         <></>
