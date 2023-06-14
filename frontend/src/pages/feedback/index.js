@@ -103,7 +103,7 @@ function FeedbackPage() {
           <header>
             <div className="text-box">
               <h1 id="title">
-                Tell us about your experience on the Guest Lecture
+                Tell us about your experience on the Guest Lecture!
               </h1>
               <hr />
 
@@ -118,7 +118,7 @@ function FeedbackPage() {
             >
               <div className="labels">
                 <label id="name-label" htmlFor="name">
-                  Full Name
+                  Name
                 </label>
               
                 <div className="input-tab">
@@ -154,7 +154,8 @@ function FeedbackPage() {
                 <label id="name-label" htmlFor="name" required>
                   Guest Lecturer Name
                 </label>
-              
+              <br />
+              <br />
               <div className="input-tab">
                 {/* <input
                   className="input-field"
@@ -192,6 +193,7 @@ function FeedbackPage() {
                 <label>How was the overall organization of the Lecture?</label>
               </div>
               <div className="input-tab">
+                <br />
                 <input
                   type="radio"
                   name="organization"
@@ -201,9 +203,9 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, organization: e.target.value })
                   }
                 />
-                Extremely Good!
+                Excellent
 
-                <br />
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="organization"
@@ -213,7 +215,7 @@ function FeedbackPage() {
                   }
                 />
                 Good
-                <br />
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="organization"
@@ -222,8 +224,8 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, organization: e.target.value })
                   }
                 />
-                Satisfactory
-                <br />
+                Average
+                {/* <br /> */}
               </div>
               <br />
               <div className="labels">
@@ -242,8 +244,8 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, content: e.target.value })
                   }
                 />
-                Extremely Good!
-                <br />
+                Excellent
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="content"
@@ -253,7 +255,7 @@ function FeedbackPage() {
                   }
                 />
                 Good
-                <br />
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="content"
@@ -262,8 +264,8 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, content: e.target.value })
                   }
                 />
-                Satisfactory
-                <br />
+                Average
+                {/* <br /> */}
               </div>
               <br />
               <div className="labels">
@@ -281,8 +283,8 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, satisfied: e.target.value })
                   }
                 />
-                Extremely Good!
-                <br />
+                Excellent
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="satisfied"
@@ -292,7 +294,7 @@ function FeedbackPage() {
                   }
                 />
                 Good
-                <br />
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="satisfied"
@@ -301,8 +303,8 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, satisfied: e.target.value })
                   }
                 />
-                Satisfactory
-                <br />
+                Average
+                {/* <br /> */}
               </div>
               <br />
               <br />
@@ -313,6 +315,7 @@ function FeedbackPage() {
                 </label>
               </div>
               <div className="input-tab">
+                <br />
                 <input
                   type="radio"
                   name="preperation"
@@ -322,8 +325,8 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, preperation: e.target.value })
                   }
                 />
-                Extremely Good!
-                <br />
+                Excellent
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="preperation"
@@ -333,7 +336,7 @@ function FeedbackPage() {
                   }
                 />
                 Good
-                <br />
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="preperation"
@@ -342,8 +345,8 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, preperation: e.target.value })
                   }
                 />
-                Satisfactory
-                <br />
+                Average
+                {/* <br /> */}
               </div>
               <br />
               <br />
@@ -353,6 +356,7 @@ function FeedbackPage() {
                 </label>
               </div>
               <div className="input-tab">
+                <br />
                 <input
                   type="radio"
                   name="expecting"
@@ -362,8 +366,8 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, expecting: e.target.value })
                   }
                 />
-                Extremely Good!
-                <br />
+                Excellent
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="expecting"
@@ -374,7 +378,7 @@ function FeedbackPage() {
                   }
                 />
                 Good
-                <br />
+                {/* <br /> */}
                 <input
                   type="radio"
                   name="expecting"
@@ -383,8 +387,8 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, expecting: e.target.value })
                   }
                 />
-                Satisfactory
-                <br />
+                Average
+                {/* <br /> */}
               </div>
               <br />
               <br />
@@ -407,7 +411,7 @@ function FeedbackPage() {
               <br />
               <div>
                 <div className="feedback">
-                  <h1>RATING</h1>
+                  <h1>RATE THE LECTURER</h1>
                   <div className="rating">
                     <input
                       type="radio"
