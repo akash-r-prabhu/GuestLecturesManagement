@@ -378,7 +378,7 @@ function LoginPage() {
                   }}
                 >
                   <option>User Type</option>
-                  <option value="student">User</option>
+                  <option value="student">Student</option>
                   <option value="admin">Admin</option>
                   <option value="lecturer">Lecturer</option>
                 </select>
@@ -420,7 +420,7 @@ function LoginPage() {
                     setFormAreasOfInterest(selectedAreasOfInterest);
                   }}
                 >
-                  <option><center>Areas of Interest</center></option>
+                  <option>Areas of Interest</option>
                   {areasOfInterest.map((areaOfInterest) => {
                     return (
                       <option key={areaOfInterest} value={areaOfInterest}>

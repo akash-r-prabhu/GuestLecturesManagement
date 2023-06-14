@@ -127,7 +127,7 @@ function FeedbackPage() {
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Name"
+                    placeholder="Enter your name"
                     required
                     autofocus=""
                     value={user.name}
