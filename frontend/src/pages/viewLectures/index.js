@@ -22,7 +22,7 @@ function ViewLectures() {
   // current time
   // const time = new Date().toLocaleTimeString();
 
-  const filter = () => {
+  const filter = (arg) => {
     var addtoHtml = "";
     var addtoHtml2 = "";
     addtoHtml += "<option >" + "Select a title" + "</option>";
@@ -51,20 +51,44 @@ function ViewLectures() {
       focusConfirm: false,
 
       preConfirm: () => {
-        const lecture_title =
-          document.getElementById("filter-swal-input1").value;
-        if (lecture_title) {
-          setLectures(lectures.filter((item) => item.title == lecture_title));
-        }
-        const date = document.getElementById("filter-swal-input2").value;
+        if (arg === "admin") {
+          const lecture_title =
+            document.getElementById("filter-swal-input1").value;
+          if (lecture_title) {
+            setLectures(lectures.filter((item) => item.title == lecture_title));
+          }
+          const date = document.getElementById("filter-swal-input2").value;
 
-        if (date) {
-          setLectures(lectures.filter((item) => item.date == date));
-        }
+          if (date) {
+            setLectures(lectures.filter((item) => item.date == date));
+          }
 
-        const lecturer = document.getElementById("filter-swal-input3").value;
-        if (lecturer) {
-          setLectures(lectures.filter((item) => item.lecturer == lecturer));
+          const lecturer = document.getElementById("filter-swal-input3").value;
+          if (lecturer) {
+            setLectures(lectures.filter((item) => item.lecturer == lecturer));
+          }
+        } else if (arg === "student") {
+          const lecture_title =
+            document.getElementById("filter-swal-input1").value;
+          if (lecture_title) {
+            setLecturesForStudent(
+              lecturesForStudent.filter((item) => item.title == lecture_title)
+            );
+          }
+          const date = document.getElementById("filter-swal-input2").value;
+
+          if (date) {
+            setLecturesForStudent(
+              lecturesForStudent.filter((item) => item.date == date)
+            );
+          }
+
+          const lecturer = document.getElementById("filter-swal-input3").value;
+          if (lecturer) {
+            setLecturesForStudent(
+              lecturesForStudent.filter((item) => item.lecturer == lecturer)
+            );
+          }
         }
       },
     });
@@ -194,7 +218,7 @@ function ViewLectures() {
         >
           ADD LECTURE
         </button>
-        <button onClick={() => filter()}>Filter lecture</button>
+        <button onClick={() => filter("admin")}>Filter lecture</button>
 
         <div className="c">
           {lectures.map((lecture) => (
@@ -240,6 +264,7 @@ function ViewLectures() {
         <br />
         <br />
         <br />
+        <button onClick={() => filter("student")}>Filter lecture</button>
         <div className="c">
           {lecturesForStudent.map((lecture) => (
             <LectureBox
