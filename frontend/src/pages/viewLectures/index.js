@@ -186,16 +186,17 @@ function ViewLectures() {
         <br />
         <br />
         <br />
-
-        <button
-          style={{ "background-color": "#EE2B47" }}
-          className="addLectureButton"
-          onClick={() => addLecture()}
-        >
-          ADD LECTURE
-        </button>
-        <button onClick={() => filter()}>Filter lecture</button>
-
+        <br/>
+        <div className="CenterButtons">
+          <button onClick={() => addLecture()}
+          >
+            ADD LECTURE
+          </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button onClick={() => filter()}>FILTER</button>
+        </div>
+        <br/>
+        <br/>
         <div className="c">
           {lectures.map((lecture) => (
             <LectureBox
@@ -208,6 +209,7 @@ function ViewLectures() {
               status={lecture.status}
             />
           ))}
+        
         </div>
       </>
     );

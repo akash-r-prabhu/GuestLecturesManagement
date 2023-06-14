@@ -189,6 +189,8 @@ body {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
     transform-style: preserve-3d;
+    color:black;
+    text-align: left;
   }
   
   .lecture-box:hover {
@@ -211,6 +213,7 @@ body {
   .lecture-box p {
     font-size: 14px;
     margin-bottom: 5px;
+    text-align: left;
   }
   
   .register-button {
@@ -227,15 +230,29 @@ body {
   
 .addLectureButton{
 /* align to right end */
-float: right;
+/* float: right; */
 margin-right: 10px;
-margin-top: 10px;
+/*margin-top: 10px; */
 }
 
 .addLectureButton:hover{
   /* align to right end */
-  float: right;
+  /* float: right; */
   margin-right: 10px;
-  margin-top: 10px;
-  color: black;
+  /*margin-top: 10px; */
+  /* color: black; */
+  }
+
+  .CenterButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+  .CenterButtons:hover{
+    color:black;
   }
