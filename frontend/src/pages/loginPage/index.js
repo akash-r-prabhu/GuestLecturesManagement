@@ -27,9 +27,9 @@ function LoginPage() {
     "Information Technology",
   ];
   const areasOfInterest = [
-    "Artificial Intelligence",
+    "Software Engineering",
     "Machine Learning",
-
+    "Artificial Intelligence",
     "Data Science",
     "Internet of Things",
     "Cloud Computing",

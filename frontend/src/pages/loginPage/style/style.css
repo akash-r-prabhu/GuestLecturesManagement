@@ -211,6 +211,9 @@ h2{
     overflow: auto;
     height: 60px;
   }
+  #aoi2::-webkit-scrollbar {
+    width: 0px;
+  }
 
   /* width */
 ::-webkit-scrollbar {
