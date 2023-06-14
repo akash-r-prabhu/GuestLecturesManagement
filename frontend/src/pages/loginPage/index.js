@@ -84,6 +84,23 @@ function LoginPage() {
     }
   }
 
+  function forgotPassword() {
+    swal("Enter your email address", {
+      content: "input",
+    }).then((value) => {
+      if (value) {
+        axios.get("http://localhost:8001/forgotPassword", {
+          params: {
+            email: value,
+          },
+        });
+        swal("Your password has been sent to your email address", {
+          icon: "success",
+        });
+      }
+    });
+  }
+
   function onsubmitform1(e) {
     e.preventDefault();
     console.log("Form submitted");
@@ -316,6 +333,13 @@ function LoginPage() {
               <br />
               <div className="form-group">
                 <button type="submit">LOGIN</button>
+                <br />
+                <div
+                  className="forgotPasswordButton"
+                  onClick={() => forgotPassword()}
+                >
+                  Forgot password
+                </div>
               </div>
               <br />
               <br />

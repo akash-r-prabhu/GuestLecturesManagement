@@ -167,3 +167,7 @@ h2{
   .container.purple button {
     background-color: #8f94fb;
   }
+
+  .forgotPasswordButton{
+    cursor: pointer;
+  }

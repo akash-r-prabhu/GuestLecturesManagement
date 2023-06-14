@@ -1,10 +1,34 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Navbar } from "../../components";
 import GuestsImage from "../../images/guest.gif";
 import ThoughtImage from "../../images/thought.jpg";
 import PythonImage from "../../images/python.png";
+import { useStateValue } from "../../context/StateProvider";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
+import { Carousel } from "react-responsive-carousel"; // Import Carousel component
 
 function StudentDashboard() {
+  const [lecturesForStudent, setLecturesForStudent] = useState([]);
+  const [{ user }, dispatch] = useStateValue();
+
+  useEffect(() => {
+    if (user.type === "student") {
+      axios
+        .get("http://localhost:8001/lecturesForStudent", {
+          params: {
+            id: user.studentrollno,
+          },
+        })
+        .then((res) => {
+          setLecturesForStudent(res.data);
+          console.log("boom");
+          console.log(res.data);
+        });
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -34,21 +58,38 @@ function StudentDashboard() {
                 margin: "-35px auto 0 auto",
               }}
             />
-            <div className="profile_info">
+            {/* <div className="profile_info">
               <p style={{ textAlign: "center" }} className="lec_title">
                 <h2>PYTHON LIBRARIES</h2>
               </p>
-              <p>27/05/2023 12:00 noon</p><br/>
+              <p>27/05/2023 12:00 noon</p>
+              <br />
               <p className="account_name">
                 In the Python libraries lecture, we can learn about the vast
                 ecosystem of libraries available to Python developers and how
                 they can significantly enhance our programming capabilities
               </p>
-            </div>
+            </div> */}
+            <Carousel autoPlay={true} infiniteLoop={true}>
+              {lecturesForStudent.map((item) => (
+                <div key={item.id} className="profile_info">
+                  <p style={{ textAlign: "center" }} className="lec_title">
+                    <h2>{item.title}</h2>
+                  </p>
+                  <p>
+                    {item.date} {item.time}
+                  </p>
+                  <br />
+                  <p className="account_name">
+                    <b>LECTURER: </b>
+                    {item.lecturer}
+                  </p>
+                </div>
+              ))}
+            </Carousel>
             <div style={{ border: "0.2px solid lightgrey" }} />
             <div className="connections">
               <br />
-             
             </div>
           </div>
         </div>
@@ -61,15 +102,24 @@ function StudentDashboard() {
               <div className="post_item_info">
                 <div
                   className="post_item_owner"
-                  style={{ marginLeft: 8, padding: "0%",fontFamily: "TimeRanges",
-                  wordSpacing: 1.5,
-                  lineHeight: 1.5, }}
+                  style={{
+                    marginLeft: 8,
+                    padding: "0%",
+                    fontFamily: "TimeRanges",
+                    wordSpacing: 1.5,
+                    lineHeight: 1.5,
+                  }}
                 >
-                  <p><i><b>
-                    "Celebrating a constellation of brilliant minds who inspire,
-                    educate, and transform. Join us as we unlock a universe of
-                    knowledge with our esteemed guest lecturers."
-                    </b></i></p>
+                  <p>
+                    <i>
+                      <b>
+                        "Celebrating a constellation of brilliant minds who
+                        inspire, educate, and transform. Join us as we unlock a
+                        universe of knowledge with our esteemed guest
+                        lecturers."
+                      </b>
+                    </i>
+                  </p>
                   <p
                     style={{
                       fontSize: 40,
@@ -140,10 +190,13 @@ function StudentDashboard() {
           </div>
           <div className="news">
             <div className="news_head">
-              <div className="news_title" style={{
-                  alignItems:"center",
+              <div
+                className="news_title"
+                style={{
+                  alignItems: "center",
                   textAlign: "center",
-                }}>
+                }}
+              >
                 <h2>IMPORTANT DATES</h2>
               </div>
             </div>
@@ -170,7 +223,9 @@ function StudentDashboard() {
                   }}
                 />
                 Registered for Entrepreneurship: A lifetime of rewards, on 5th
-                Dec<br/><br/>
+                Dec
+                <br />
+                <br />
               </div>
             </div>
             <div className="new_list">

@@ -537,6 +537,34 @@ app.post("/cancelLecture", async function (req, res) {
   }
 });
 
+app.get("/forgotPassword", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  var data = NaN;
+  const docRef = await db
+    .collection("users")
+    .where("email", "==", queryObject.email)
+    .get();
+  docRef.forEach((doc) => {
+    data = doc.data().password;
+    res.send(data);
+    const mailOptions = {
+      from: "sender@gmail.com",
+      to: queryObject.email,
+      subject: "Recovery password",
+      text: "Your password is: " + data,
+    };
+    if (data) {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+    }
+  });
+});
+
 // sample url http://localhost:8001/registerForLecture?docId=1&name=Kamal
 app.listen(8001, function () {
   console.log("CORS-enabled web server listening on port 8001");
