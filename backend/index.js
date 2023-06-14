@@ -5,6 +5,7 @@ var fs = require("fs");
 var db = require("./firebase.js").db;
 var express = require("express");
 var cors = require("cors");
+const nodemailer = require("nodemailer");
 
 const bodyParser = require("body-parser");
 const e = require("express");
@@ -28,6 +29,13 @@ app.use(bodyParser.json());
 //     res.send(lectures);
 //   });
 // });
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "akashprabhu41@gmail.com",
+    pass: "ueasbgnoqfemsazj",
+  },
+});
 app.get("/lectureList", async function (req, res) {
   const lectures = [];
 
@@ -401,6 +409,7 @@ app.get("/lecturesForStudent", async function (req, res) {
       lectures.length = 0; // Clear the array before updating
 
       snapshot.forEach((doc) => {
+        console.log(doc);
         const data = doc.data();
         lectures.push({
           id: doc.id,
@@ -419,6 +428,7 @@ app.get("/lecturesForStudent", async function (req, res) {
       unsubscribe();
     });
 });
+
 // sample url http://localhost:8001/lecturesForStudent?name=Kamal
 
 app.get("/acceptLectureRequest", async function (req, res) {
@@ -434,20 +444,36 @@ app.get("/registerForLecture", async function (req, res) {
   const queryObject = url.parse(req.url, true).query;
   const docId = queryObject.docId;
   const studentId = queryObject.studentId;
-  const docRef = await db
-    .collection("lectures")
-    .doc(docId)
-    .collection("students")
-    .doc(studentId)
-    .set({
-      studentId: studentId,
-    })
-    .then((docRef) => {
-      res.send("success");
-    })
-    .catch((error) => {
-      res.send("error");
+  const email = queryObject.email;
+  try {
+    const docRef = await db
+      .collection("lectures")
+      .doc(docId)
+      .collection("students")
+      .doc(studentId)
+      .set({
+        studentId: studentId,
+      });
+    // send mail to student to confirm
+    const mailOptions = {
+      from: "glms@gmail.com",
+      to: email,
+      subject: "Successfully registered for lecture",
+      text: "You have successfully registered for the lecture.",
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
     });
+    // end
+
+    res.send("success");
+  } catch {
+    res.send("error");
+  }
 });
 
 app.post("/setFeedback", async function (req, res) {

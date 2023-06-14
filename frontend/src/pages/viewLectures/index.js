@@ -111,7 +111,7 @@ function ViewLectures() {
       axios
         .get("http://localhost:8001/lecturesForStudent", {
           params: {
-            name: "3333",
+            id: user.studentrollno,
           },
         })
         .then((res) => {

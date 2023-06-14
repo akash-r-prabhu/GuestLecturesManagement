@@ -74,6 +74,7 @@ function LectureBox(props) {
         params: {
           docId: id,
           studentId: user.studentrollno,
+          email: user.email,
         },
       })
       .then((res) => {

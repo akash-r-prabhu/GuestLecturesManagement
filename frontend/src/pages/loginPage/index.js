@@ -378,7 +378,7 @@ function LoginPage() {
                   }}
                 >
                   <option>User Type</option>
-                  <option value="student">Student</option>
+                  <option value="student">User</option>
                   <option value="admin">Admin</option>
                   <option value="lecturer">Lecturer</option>
                 </select>
