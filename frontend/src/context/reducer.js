@@ -15,6 +15,7 @@ const reducer = (state, action) => {
         user: action.user,
         usertype: action.usertype,
         userid: action.userid,
+        areaofinterest: action?.areaofinterest,
       };
     case actionTypes.LOGOUT:
       return {

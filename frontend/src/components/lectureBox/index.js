@@ -1,15 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useStateValue } from "../../context/StateProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
 import LectureImage from "../../images/IMG_0347.jpg";
 import "./style/style.css";
 function LectureBox(props) {
   const [{ user }, dispatch] = useStateValue();
 
+  // compare props.title and props.predictions and print in percentage similarity x and y should be converted to string
+  const [x, setX] = useState("");
+  const [y, setY] = useState("");
+
+  const calculateSimilarity = (str1, str2) => {
+    const words1 = str1.split(" ");
+    const words2 = str2.split(" ");
+
+    const totalWords = words1.length + words2.length;
+    let matchCount = 0;
+
+    words1.forEach((word1) => {
+      if (words2.includes(word1)) {
+        matchCount++;
+      }
+    });
+
+    const similarityPercentage = (matchCount / totalWords) * 100;
+    return similarityPercentage.toFixed(2);
+  };
+
+  const similarityPercentage = calculateSimilarity(x, y);
+  console.log(`Similarity Percentage: ${similarityPercentage}%`);
+
+  function getBackgroundColor(percentage) {
+    if (percentage >= 80) {
+      return "green"; 
+    } else if (percentage >= 50) {
+      return "yellow"; 
+    } else {
+      return "red"; 
+    }
+  }
+
   useEffect(() => {
-    console.log(user);
+    if (user.type === "student") {
+      const lectureBox = document.querySelector(".lecture-box");
+      lectureBox.style.backgroundColor =
+        getBackgroundColor(similarityPercentage);
+    }
   }, []);
   const cancelLecture = () => {
     console.log(props);

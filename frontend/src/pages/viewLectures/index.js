@@ -13,6 +13,7 @@ function ViewLectures() {
   const [{ user }, dispatch] = useStateValue();
   const [lecturesForLecturer, setLecturesForLecturer] = useState([]);
   const [lecturesForStudent, setLecturesForStudent] = useState([]);
+  const [predictions, setPredictions] = useState([]);
   // tomorrows date in format DD-MM-YYYY
   // const today = new Date().toISOString().slice(0, 10);
   const today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
@@ -108,6 +109,18 @@ function ViewLectures() {
     }
 
     if (user.type == "student") {
+      //   const prediction = axios.post("http://127.0.0.1:5000/predict", {
+      //   skills: user.areaofinterest,
+      // });
+      axios
+        .post("http://127.0.0.1:5000/predict", {
+          skills: user.areaofinterest,
+        })
+        .then((res) => {
+          setPredictions(res.data);
+          console.log(res.data);
+        });
+
       axios
         .get("http://localhost:8001/lecturesForStudent", {
           params: {
@@ -258,6 +271,9 @@ function ViewLectures() {
       </>
     );
   } else if (user.type === "student") {
+    console.log(user.areaofinterest);
+    // http://127.0.0.1:5000/predict with await
+
     return (
       <>
         <Navbar />
@@ -276,6 +292,7 @@ function ViewLectures() {
               lecturer={lecture.lecturer}
               status={lecture.status}
               alreadyRegistered={lecture.alreadyRegistered}
+              prediction={predictions.predictions}
             />
           ))}
         </div>

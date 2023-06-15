@@ -125,6 +125,7 @@ function LoginPage() {
           user: response.data,
           usertype: "student",
           userid: response.data.id,
+          areaofinterest: response.data.areaofinterest,
         });
         reactLocalStorage.setObject("user", response.data);
         document.getElementById("loginForm").reset();
