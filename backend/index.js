@@ -606,6 +606,26 @@ app.get("/deleteFeedback", async function (req, res) {
   }
 });
 
+app.post("/sendMail", async function (req, res) {
+  const data = req.body;
+  const mailOptions = {
+    from: data.from,
+    to: data.email,
+    subject: data.subject,
+    text: data.text,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+
+  res.send("success");
+});
+
 // sample url http://localhost:8001/registerForLecture?docId=1&name=Kamal
 app.listen(8001, function () {
   console.log("CORS-enabled web server listening on port 8001");

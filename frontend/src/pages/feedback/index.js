@@ -125,6 +125,32 @@ function FeedbackPage() {
           showConfirmButton: false,
           timer: 1500,
         });
+
+        // app.post("/sendMail", async function (req, res) {
+        //   const data = req.body;
+        //   const mailOptions = {
+        //     from: data.from,
+        //     to: data.email,
+        //     subject: data.subject,
+        //     text: data.text,
+        //   };
+        //   if (data.password) {
+        //     transporter.sendMail(mailOptions, (error, info) => {
+        //       if (error) {
+        //         console.log(error);
+        //       } else {
+        //         console.log("Email sent: " + info.response);
+        //       }
+        //     });
+        //   }
+        //   res.send("success");
+        // });
+        axios.post("http://localhost:8001/sendMail", {
+          email: feedback.email,
+          from: user.email,
+          subject: "Feedback Submitted",
+          text: feedback.content,
+        });
       })
 
       .catch((err) => {
