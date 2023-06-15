@@ -13,6 +13,35 @@ function FeedbackPage() {
   const [{ user }, dispatch] = useStateValue();
   const [guestLecturersList, setGuestLecturersList] = React.useState([]);
   const [feedbackForLecturer, setFeedbackForLecturer] = React.useState([]);
+  const [allFeedback, setAllFeedback] = React.useState([]);
+
+  function deleteFeedback(id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          const request = axios.get(
+            `http://localhost:8001/deleteFeedback?id=${id}`
+          );
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          return request;
+        } catch {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        }
+      }
+    });
+  }
 
   React.useEffect(() => {
     if (user.type == "lecturer") {
@@ -22,6 +51,17 @@ function FeedbackPage() {
         })
         .then((res) => {
           setFeedbackForLecturer(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (user.type == "admin") {
+      axios
+        .get("http://localhost:8001/getAllFeedback")
+        .then((res) => {
+          setAllFeedback(res.data);
           console.log(res.data);
         })
         .catch((err) => {
@@ -120,7 +160,7 @@ function FeedbackPage() {
                 <label id="name-label" htmlFor="name">
                   Name
                 </label>
-              
+
                 <div className="input-tab">
                   <input
                     className="input-field"
@@ -138,26 +178,27 @@ function FeedbackPage() {
                 <label id="email-label" htmlFor="email">
                   Email
                 </label>
-              
-              <div className="input-tab">
-                <input
-                  className="input-field"
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="email@email.com"
-                  required
-                  value={user.email}
-                />
-              </div></div>
+
+                <div className="input-tab">
+                  <input
+                    className="input-field"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="email@email.com"
+                    required
+                    value={user.email}
+                  />
+                </div>
+              </div>
               <div className="labels">
                 <label id="name-label" htmlFor="name" required>
                   Guest Lecturer Name
                 </label>
-              <br />
-              <br />
-              <div className="input-tab">
-                {/* <input
+                <br />
+                <br />
+                <div className="input-tab">
+                  {/* <input
                   className="input-field"
                   type="text"
                   id="name"
@@ -169,24 +210,25 @@ function FeedbackPage() {
                     setFeedback({ ...feedback, lecturer: e.target.value })
                   }
                 /> */}
-                <select
-                  className="input-field"
-                  id="dropdown"
-                  name="lecturer"
-                  required
-                  defaultValue={user.email}
-                  onChange={(e) =>
-                    setFeedback({ ...feedback, lecturer: e.target.value })
-                  }
-                >
-                  <option value="" disabled selected>
-                    Guest Lecturer Name
-                  </option>
-                  {guestLecturersList.map((item) => (
-                    <option value={item.name}>{item.name}</option>
-                  ))}
-                </select>
-              </div></div>
+                  <select
+                    className="input-field"
+                    id="dropdown"
+                    name="lecturer"
+                    required
+                    defaultValue={user.email}
+                    onChange={(e) =>
+                      setFeedback({ ...feedback, lecturer: e.target.value })
+                    }
+                  >
+                    <option value="" disabled selected>
+                      Guest Lecturer Name
+                    </option>
+                    {guestLecturersList.map((item) => (
+                      <option value={item.name}>{item.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
               <br />
               <br />
               <div className="labels">
@@ -204,7 +246,6 @@ function FeedbackPage() {
                   }
                 />
                 Excellent
-
                 {/* <br /> */}
                 <input
                   type="radio"
@@ -802,6 +843,45 @@ function FeedbackPage() {
                 <div>Preparation : {feedback.preperation}</div>
                 <div>Expectation : {feedback.expecting}</div>
                 <div>Rating : {feedback.rating}</div>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
+  } else if (user.type == "admin") {
+    return (
+      <>
+        <Navbar />
+        <br />
+        <br />
+        <br />
+        {/* name: data.name,
+          email: data.email,
+          lecturer: data.lecturer,
+          suggestion: data.suggestion,
+          organization: data.organization,
+          content: data.content,
+          satisfied: data.satisfied,
+          preperation: data.preperation,
+          expecting: data.expecting,
+          rating: data.rating, */}
+        <div className="feedbackCardContainer">
+          {allFeedback.map((feedback) => {
+            console.log(feedback);
+            return (
+              <div className="feedbackCard">
+                <div>Lecturer : {feedback.lecturer}</div>
+                <div>Suggestion : {feedback.suggestion}</div>
+                <div>Organization : {feedback.organization}</div>
+                <div>Content : {feedback.content}</div>
+                <div>Satisfied : {feedback.satisfied}</div>
+                <div>Preparation : {feedback.preperation}</div>
+                <div>Expectation : {feedback.expecting}</div>
+                <div>Rating : {feedback.rating}</div>
+                <button onClick={() => deleteFeedback(feedback.id)}>
+                  Delete
+                </button>
               </div>
             );
           })}

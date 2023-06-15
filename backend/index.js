@@ -527,6 +527,36 @@ app.get("/getFeedbackForLecturer", async function (req, res) {
     });
 });
 
+app.get("/getAllFeedback", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const feedbacks = [];
+
+  const unsubscribe = db.collection("feedback").onSnapshot((snapshot) => {
+    feedbacks.length = 0; // Clear the array before updating
+
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      feedbacks.push({
+        id: doc.id,
+        name: data.name,
+        email: data.email,
+        lecturer: data.lecturer,
+        suggestion: data.suggestion,
+        organization: data.organization,
+        content: data.content,
+        satisfied: data.satisfied,
+        preperation: data.preperation,
+        expecting: data.expecting,
+        rating: data.rating,
+      });
+    });
+
+    // Send the updated lecturer list
+    res.send(feedbacks);
+    unsubscribe();
+  });
+});
+
 app.post("/cancelLecture", async function (req, res) {
   const id = req.body.id;
   try {
@@ -563,6 +593,17 @@ app.get("/forgotPassword", async function (req, res) {
       });
     }
   });
+});
+
+app.get("/deleteFeedback", async function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  const id = queryObject.id;
+  try {
+    const docRef = await db.collection("feedback").doc(id).delete();
+    res.send("success");
+  } catch {
+    res.send("error");
+  }
 });
 
 // sample url http://localhost:8001/registerForLecture?docId=1&name=Kamal

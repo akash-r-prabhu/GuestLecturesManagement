@@ -81,7 +81,7 @@ function AdminDashboard() {
                 </div>
               </div>
             </Link>
-            <div className="card">
+            <Link to="/feedback" className="card">
               <div className="card-content">
                 <i className="fas fa-comment fa-7x" />
                 <br />
@@ -89,7 +89,7 @@ function AdminDashboard() {
 
                 <h2>View Feedback</h2>
               </div>
-            </div>
+            </Link>
             <Link to="/1" className="room">
               <div className="card">
                 <div className="card-content">
