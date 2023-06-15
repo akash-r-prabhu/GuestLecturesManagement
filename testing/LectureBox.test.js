@@ -30,7 +30,7 @@ describe("LectureBox component", () => {
     //expect(screen.getByTestId(lectureProps.title)).toBeInTheDocument();
     //expect(screen.getByText(lectureProps.date)).toBeInTheDocument();
     //expect(screen.getByText(lectureProps.time)).toBeInTheDocument();
-    //expect(screen.getByText(lectureProps.lecturer)).toBeInTheDocument();
+    //expect(screen.getByText(lectureProps.lecturer)).toBeInTheDocument();D:\VS Code\go\GuestLecturesManagement\testing\LectureBox.test.js
     expect(screen.getByText("Status Pending")).toBeInTheDocument();
   });
 
