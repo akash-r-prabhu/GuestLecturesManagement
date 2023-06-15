@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About Us</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .container {
+      width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    p {
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .feedback-form {
+      margin-top: 30px;
+    }
+    .feedback-form h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .feedback-form label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+    .feedback-form textarea {
+      width: 100%;
+      height: 100px;
+      resize: vertical;
+    }
+    .feedback-form input[type="text"],
+    .feedback-form input[type="email"],
+    .feedback-form textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      background-color: #f5f5f5;
+      transition: all 0.3s ease;
+    }
+    .feedback-form input[type="text"]:focus,
+    .feedback-form input[type="email"]:focus,
+    .feedback-form textarea:focus {
+      outline: none;
+      background-color: #fff;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    }
+    .feedback-form input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .feedback-form input[type="submit"]:hover {
+      background-color: #555;
+    }
+    .feedback-container {
+      display: flex;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    .feedback-container img {
+      width: 80px;
+      height: 80px;
+      margin-right: 20px;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .feedback-container p {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .row {
+      display: flex;
+      margin-top: 20px;
+    }
+    .row .feedback-container {
+      flex: 1;
+      margin-right: 20px;
+      background-color: #f5f5f5;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .feedback-container:hover {
+      transform: translate(0, -5px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>About Us</h1>
+    <p>Welcome to our Guest Lecture Management System!</p>
+    <p>We are a team of dedicated professionals who have developed this system to simplify the management of guest lectures in educational institutions. Our goal is to provide an efficient and user-friendly platform for scheduling, organizing, and evaluating guest lectures.</p>
+    <p>With our system, you can easily manage guest lecture requests, invite speakers, schedule lectures, track attendance, and gather feedback from participants.</p>
+    <p>We are committed to continuously improving our system and providing excellent support to our users. Your feedback is valuable to us as it helps us enhance the system and cater to your needs more effectively.</p>
+    <p>Thank you for choosing our Guest Lecture Management System!</p>
+
+    <div class="feedback-form">
+      <h2>Feedback</h2>
+      <div class="row">
+        <div class="feedback-container">
+          <img src="1.jpg" alt="Student 1">
+          <div>
+            <p><strong>Anjali:</strong></p>
+            <p>The guest lecture management system is fantastic! It has made it incredibly easy for us to request lectures and keep track of our attendance. The interface is user-friendly, and the system is very reliable. Thank you for developing such a useful tool!</p>
+          </div>
+        </div>
+        <div class="feedback-container">
+          <img src="2.jpg" alt="Student 2">
+          <div>
+            <p><strong>Ammu:</strong></p>
+            <p>This guest lecture management system is a game-changer! It has streamlined the entire process, from scheduling lectures to receiving certificates. The system is intuitive and efficient. We greatly appreciate the efforts put into developing this platform!</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="feedback-container">
+          <img src="3.jpg" alt="Teacher 1">
+          <div>
+            <p><strong>Sraya:</strong></p>
+            <p>The guest lecture management system has been a valuable addition to our institution. It has simplified the process of organizing and managing guest lectures. The system is reliable, and the support provided by the team is commendable. Keep up the good work!</p>
+          </div>
+        </div>
+        <div class="feedback-container">
+          <img src="4.jpg" alt="Teacher 2">
+          <div>
+            <p><strong>Suresh:</strong></p>
+            <p>We are extremely pleased with the guest lecture management system. It has made our job so much easier. The system's features are comprehensive, and the user interface is intuitive. We highly recommend this platform to other educational institutions.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>Leave Your Feedback</h2>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <label for="message">Message:</label>
+        <textarea id="message" required></textarea>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+</body>
+</html>
