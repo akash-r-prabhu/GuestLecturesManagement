@@ -5,3 +5,4 @@ export { default as AdminDashboard } from "./adminDashboard";
 export { default as StudentDashboard } from "./studentDashboard";
 export { default as LecturerDashboard } from "./lecturerDashboard";
 export { default as FeedbackPage } from "./feedback";
+export { default as ContactPage } from "./contactPage";
