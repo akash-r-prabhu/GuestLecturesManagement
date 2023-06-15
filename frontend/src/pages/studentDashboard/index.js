@@ -127,7 +127,7 @@ function StudentDashboard() {
                       padding: "0%",
                     }}
                   >
-                    <h2>OUR GUEST LECTURERS</h2>
+                    <h2>WELCOME</h2>
                   </p>
                 </div>
               </div>
@@ -136,20 +136,20 @@ function StudentDashboard() {
             <div className="post_item_body_info">
               <p style={{ fontSize: "0.95rem" }}></p>
             </div>
-            <img
+            {/* <img
               src={GuestsImage}
               alt="noom"
               className="post_item_body_video"
               style={{ width: "100%" }}
-            />
-            <div className="post_item_footer">
+            /> */}
+            {/* <div className="post_item_footer">
               <div className="footer_item">
                 <i className="bi bi-hand-thumbs-up" /> <div>Like</div>
               </div>
               <div className="footer_item">
                 <i className="bi bi-arrow-90deg-right" /> <div>Share</div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="activity">
