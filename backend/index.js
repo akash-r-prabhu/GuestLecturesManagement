@@ -6,7 +6,7 @@ var db = require("./firebase.js").db;
 var express = require("express");
 var cors = require("cors");
 const nodemailer = require("nodemailer");
-
+const { parseString } = require("xml2js");
 const bodyParser = require("body-parser");
 const e = require("express");
 var app = express();
@@ -624,6 +624,25 @@ app.post("/sendMail", async function (req, res) {
   });
 
   res.send("success");
+});
+app.get("/testCases", async function (req, res) {
+  fs.readFile("./loginData.xml", "utf-8", (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Error reading XML file");
+    }
+
+    // Parse XML data
+    parseString(data, (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Error parsing XML");
+      }
+
+      // Send the parsed XML data as the response
+      res.json(result);
+    });
+  });
 });
 
 // sample url http://localhost:8001/registerForLecture?docId=1&name=Kamal

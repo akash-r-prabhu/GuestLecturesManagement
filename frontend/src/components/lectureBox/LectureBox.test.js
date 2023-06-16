@@ -21,10 +21,7 @@ describe("LectureBox component", () => {
   };
 
   test("renders lecture details", () => {
-    useStateValue.mockReturnValue([
-      { user: { type: "lecturer" } },
-      () => {}
-    ]);
+    useStateValue.mockReturnValue([{ user: { type: "lecturer" } }, () => {}]);
     render(<LectureBox {...lectureProps} />);
 
     //expect(screen.getByTestId(lectureProps.title)).toBeInTheDocument();
@@ -35,10 +32,7 @@ describe("LectureBox component", () => {
   });
 
   test("renders Accept button for lecturer when status is pending", () => {
-    useStateValue.mockReturnValue([
-      { user: { type: "lecturer" } },
-      () => {}
-    ]);
+    useStateValue.mockReturnValue([{ user: { type: "lecturer" } }, () => {}]);
 
     render(<LectureBox {...lectureProps} />);
 
@@ -46,10 +40,7 @@ describe("LectureBox component", () => {
   });
 
   test("does not render Accept button for student", () => {
-    useStateValue.mockReturnValue([
-      { user: { type: "student" } },
-      () => {}
-    ]);
+    useStateValue.mockReturnValue([{ user: { type: "student" } }, () => {}]);
 
     render(<LectureBox {...lectureProps} />);
 
@@ -68,24 +59,25 @@ describe("LectureBox component", () => {
     await fireEvent.click(screen.getByText("Register"));
 
     await waitFor(() => {
-        expect(mockAxiosGet).toHaveBeenCalledWith("http://localhost:8001/registerForLecture", {
-            params: {
-              docId: lectureProps.id,
-              studentId: user.studentrollno,
-            },
-          });
-      });
-
+      expect(mockAxiosGet).toHaveBeenCalledWith(
+        "http://localhost:8001/registerForLecture",
+        {
+          params: {
+            docId: lectureProps.id,
+            studentId: user.studentrollno,
+          },
+        }
+      );
+    });
 
     await screen.findByText("Registered for lecture");
     await waitFor(() => {
-        expect(mockSwalFire).toHaveBeenCalledWith({
-            icon: "success",
-            title: "Registered for lecture",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+      expect(mockSwalFire).toHaveBeenCalledWith({
+        icon: "success",
+        title: "Registered for lecture",
+        showConfirmButton: false,
+        timer: 1500,
       });
-    
+    });
   });
 });
