@@ -1,3 +1,10 @@
+## Guest Lecture Management System and Lecture recommendation system
+
+This is a project developed as part of **Software engineering** course in Amrita Vishwa Vidyapeetham.
+
+The system can be used to create and manages guest lectures delivered in a university, as well as registration for guest lectures.
+
+
 <img width="1440" alt="Screenshot 2023-05-24 at 2 31 38 AM" src="https://github.com/akash-r-prabhu/GuestLecturesManagement/assets/73175408/0f05b766-c025-4e55-bb3c-4222e11eba97">
 <img width="1440" alt="Screenshot 2023-05-24 at 2 31 56 AM" src="https://github.com/akash-r-prabhu/GuestLecturesManagement/assets/73175408/6fa829fe-7654-47c1-905a-2a20e084e5ea">
 <img width="1440" alt="Screenshot 2023-05-24 at 2 32 06 AM" src="https://github.com/akash-r-prabhu/GuestLecturesManagement/assets/73175408/986d2569-ed63-43e2-9e48-4582ad1e6e34">
