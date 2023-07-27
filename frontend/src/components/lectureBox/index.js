@@ -48,6 +48,7 @@ function LectureBox(props) {
         getBackgroundColor(similarityPercentage);
     }
   }, []);
+//End of recommendation system  
   const cancelLecture = () => {
     console.log(props);
 
